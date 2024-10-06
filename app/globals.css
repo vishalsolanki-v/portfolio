@@ -1,33 +1,208 @@
+@import 'aos/dist/aos.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body{
+  background: black;
+  color: white;
+}
+.primary-gradient {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+}
+.gradient-text {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  transition: background 0.3s ease;
+}
+.gradient-text2 {
+  background: linear-gradient(129deg, #e2995f 0%,#ff7000  10%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  transition: background 0.3s ease;
+}
+.hover\:gradient-text:hover {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+/* @keyframes shadow-pulse {
+  0% {
+    box-shadow: rgba(255, 255, 255, 0.5) 0px 0px 16px;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  50% {
+    box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 24px;
+  }
+  100% {
+    box-shadow: rgba(255, 255, 255, 0.5) 0px 0px 16px;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .shadow-pulse {
+    animation: shadow-pulse 1.5s 1;
   }
+} */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.navLink{
+  position: relative;
+}
+.navLink:hover::after{
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  animation: withAny 0.5s ease-in-out forwards;
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  /* visibility: hidden; */
+}
+
+@keyframes withAny {
+  from{
+    width: 0;
+  }
+  to{
+    width: 100%;
+  }
+}
+
+:root {
+  --font-inter: Inter, sans-serif;
+  --font-spaceGrotesk: Space_Grotesk, sans-serif;
+  --font-roboto: Roboto, sans-serif;
+  --font-montserrat: Montserrat, sans-serif;
+  --font-poppins: Poppins, sans-serif;
+  --font-playfairDisplay: Playfair Display, serif;
+  --font-firaSans: Fira Sans, sans-serif;
+  --font-lora: Lora, serif;
+}
+
+/* Font classes for headings */
+.font-heading-inter {
+  font-family: var(--font-inter);
+}
+
+.font-heading-spaceGrotesk {
+  font-family: var(--font-spaceGrotesk);
+}
+
+.font-heading-roboto {
+  font-family: var(--font-roboto);
+}
+
+.font-heading-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.font-heading-poppins {
+  font-family: var(--font-poppins);
+}
+
+.font-heading-playfairDisplay {
+  font-family: var(--font-playfairDisplay);
+}
+
+.font-heading-firaSans {
+  font-family: var(--font-firaSans);
+}
+
+.font-heading-lora {
+  font-family: var(--font-lora);
+}
+
+/* Font classes for body text */
+.font-body-inter {
+  font-family: var(--font-inter);
+}
+
+.font-body-spaceGrotesk {
+  font-family: var(--font-spaceGrotesk);
+}
+
+.font-body-roboto {
+  font-family: var(--font-roboto);
+}
+
+.font-body-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.font-body-poppins {
+  font-family: var(--font-poppins);
+}
+
+.font-body-playfairDisplay {
+  font-family: var(--font-playfairDisplay);
+}
+
+.font-body-firaSans {
+  font-family: var(--font-firaSans);
+}
+
+.font-body-lora {
+  font-family: var(--font-lora);
+}
+
+
+.hide-scrollbar {
+  overflow: -moz-scrollbars-none; /* For older Firefox versions */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+/* Webkit-specific */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+  border-radius: 12px; /* Track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ff7000; /* Scrollbar color */
+  border-radius: 11px; /* Rounded corners for the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #e69900; /* Color when hovering over the scrollbar */
 }
