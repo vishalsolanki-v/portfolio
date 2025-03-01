@@ -16,7 +16,7 @@ const MyService = () => {
 <div className="sm:w-1/3 w-full relative border-0 px-6 py-6 group rounded-2xl hover:shadow-[rgba(255,_255,_255,_1)_0px_0px_16px]  shadow-[rgba(255,_255,_255,_0.5)_0px_0px_16px] overflow-hidden z-10 border-rose-500 mb-[40px]">
 <Image src={"/assets/icons/icon4.png"} alt="icon" width={50} height={50}/>
 <h2 className=' gradient-text2 text-2xl my-4 font-bold'>Here’s what I offer</h2>
-<p className='text-base mb-3  text-gray-500'>Deliver high-quality, user-centric solutions with efficiency and precision. Here’s what I offer.</p>
+<p className='text-base mb-3  '>Deliver high-quality, user-centric solutions with efficiency and precision. Here’s what I offer.</p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>Web and Mobile App Design :</span><span> Crafting engaging and intuitive designs for both web and mobile platforms.</span><br /></p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>Front-end Development :</span><span> Creating responsive, dynamic user interfaces using React.js, Next.js, and modern frontend technologies.</span></p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>Back-end Development :</span><span> Building robust server-side logic and integrating APIs to ensure seamless functionality.</span></p>
@@ -33,7 +33,7 @@ const MyService = () => {
 <div className="sm:w-1/3 w-full  border-0 px-6 py-6  rounded-2xl  hover:shadow-[rgba(255,_255,_255,_1)_0px_0px_16px] shadow-[rgba(255,_255,_255,_0.5)_0px_0px_16px] border-rose-500 mb-[40px]">
 <Image src={"/assets/icons/icon2.png"} alt="icon" width={50} height={50}/>
 <h2 className=' gradient-text2 text-2xl my-4 font-bold'>What You Can Expect</h2>
-<p className='text-base mb-3  text-gray-500'>My approach ensures that your product is not only visually appealing but also highly functional.</p>
+<p className='text-base mb-3  '>My approach ensures that your product is not only visually appealing but also highly functional.</p>
 <p className='mb-3 '><span className='text-lg p-0 m-0 font-bold gradient-text2 '>Design Strategy :</span><span className=''> Developing strategies that align with your business goals and user needs.</span><br /></p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>Clean and Functional :</span><span className=''> Designs that prioritize usability and clarity for an enhanced user experience.</span><br /></p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>Device and User Friendly :</span><span> Ensuring seamless performance across all devices and screen sizes.</span><br /></p>
@@ -43,7 +43,7 @@ const MyService = () => {
 <div className="sm:w-1/3 w-full  border-0 px-6 py-6  rounded-2xl hover:shadow-[rgba(255,_255,_255,_1)_0px_0px_16px]  shadow-[rgba(255,_255,_255,_0.5)_0px_0px_16px] border-rose-500 mb-[40px]">
 <Image src={"/assets/icons/icon3.png"} alt="icon" width={50} height={50}/>
 <h2 className=' gradient-text2 text-2xl my-4 font-bold'>Tools I Excel In</h2>
-<p className='text-base mb-3  text-gray-500'>To bring your vision to life, I leverage the following platforms.</p>
+<p className='text-base mb-3  '>To bring your vision to life, I leverage the following platforms.</p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2 break-words'>React JS | Next JS :</span><span> Developing strategies that align with your business goals and user needs.</span><br /></p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>Tailwind CSS :</span><span> Crafting custom, responsive designs with a utility-first approach to CSS.</span><br /></p>
 <p className='mb-3'><span className='text-lg p-0 m-0 font-bold gradient-text2'>GSAP :</span><span> Implementing smooth, complex animations to enhance user engagement..</span></p>

@@ -1,7 +1,5 @@
-"use client";
 import Image from "next/image";
 import React from "react";
-import Spline from "@splinetool/react-spline/next";
 import Link from "next/link";
 
 interface PostType {
@@ -44,14 +42,15 @@ const Article = ({ articleList }: { articleList: PostType[] }) => {
             </a>
           </div> */}
           <div className="w-full h-[400px] border-0 border-rose-500">
-            <Spline scene="https://prod.spline.design/Ox-x2YuCpRXw5bLQ/scene.splinecode" />
+            
           </div>
         </div>
         <div className="sm:w-1/2 w-full max-h-[600px] overflow-y-scroll overflow-x-hidden  custom-scrollbar  border-0">
           {articleList?.map((article) => (
             <div className="border-b-2 text-left mt-5" key={article?.guid}>
-              <p className="text-base mb-3 font-semibold text-gray-500">
-                {article?.pubDate}
+              <p className="text-base mb-3 font-semibold">
+              {article?.pubDate && new Date(article.pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }).replace(/ /g, "/")}
+
               </p>
               <h1 className="text-left w-full font-heading-montserrat text-2xl mb-3 hover:gradient-text font-bold">
                 {article?.title}
