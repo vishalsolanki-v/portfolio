@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, Space_Grotesk, Roboto, Montserrat, Poppins, Playfair_Display, Fira_Sans, Lora } from 'next/font/google';
+import { Montserrat, Lora } from 'next/font/google';
 
-const interFont = Inter({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-inter'
-});
+// const interFont = Inter({
+//   subsets: ['latin'],
+//   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+//   variable: '--font-inter'
+// });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-spaceGrotesk'
-});
+// const spaceGrotesk = Space_Grotesk({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '600', '700'],
+//   variable: '--font-spaceGrotesk'
+// });
 
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '500', '700', '900'],
-  variable: '--font-roboto'
-});
+// const roboto = Roboto({
+//   subsets: ['latin'],
+//   weight: ['100', '300', '400', '500', '700', '900'],
+//   variable: '--font-roboto'
+// });
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -26,23 +26,23 @@ const montserrat = Montserrat({
   variable: '--font-montserrat'
 });
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '600', '700'],
-  variable: '--font-poppins'
-});
+// const poppins = Poppins({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '600', '700'],
+//   variable: '--font-poppins'
+// });
 
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-playfairDisplay'
-});
+// const playfairDisplay = Playfair_Display({
+//   subsets: ['latin'],
+//   weight: ['400', '700'],
+//   variable: '--font-playfairDisplay'
+// });
 
-const firaSans = Fira_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  variable: '--font-firaSans'
-});
+// const firaSans = Fira_Sans({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '700'],
+//   variable: '--font-firaSans'
+// });
 
 const lora = Lora({
   subsets: ['latin'],
@@ -62,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`hide-scrollbar  ${interFont.variable} ${spaceGrotesk.variable} ${roboto.variable} ${montserrat.variable} ${poppins.variable} ${playfairDisplay.variable} ${firaSans.variable} ${lora.variable}`}>
+      <body className={`hide-scrollbar ${montserrat.variable} ${lora.variable}`}>
         {children}
 
       </body>

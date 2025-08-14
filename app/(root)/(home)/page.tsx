@@ -1,6 +1,8 @@
 import Article from "@/components/Article/page";
 import Banner from "@/components/Banner/page";
 import MyService from "@/components/MyService/page";
+import Navbar from "@/components/Navbar/page";
+import NewComponent from "@/components/NewComponeent/page";
 import Projects from "@/components/Project/page";
 import axios from "axios";
 import React from "react";
@@ -14,6 +16,7 @@ interface PostType {
   description: string;
   enclosure: {};
   categories: string[];
+  'content:encoded':string;
 }
 const Home = async () => {
   let articleList: PostType[] = [];
@@ -32,10 +35,10 @@ const Home = async () => {
 
   return (
     <>
-      <Banner />
-      <MyService />
+      {/* <Banner /> */}
+      {/* <MyService /> */}
       {/* <Projects/> */}
-      <Article articleList={articleList} />
+      {/* <Article articleList={articleList} /> */}
       {/* <div>
         <h1 className="font-heading-montserrat text-4xl">
           Heading with Montserrat
@@ -47,6 +50,12 @@ const Home = async () => {
         <p className="font-body-firaSans text-base">Body text with Fira Sans</p>
         <p className="font-body-lora text-base">Body text with Lora</p>
       </div> */}
+      <div className="xl:p-10">
+      <NewComponent/>
+      <Navbar/>
+      <Banner/>
+      <Article articleList={articleList} /> 
+      </div>
     </>
   );
 };

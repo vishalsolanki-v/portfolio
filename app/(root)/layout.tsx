@@ -5,7 +5,7 @@ import React from 'react'
 const Layout = ({children}:Readonly<{children:React.ReactNode}>) => {
   return (
     <React.Fragment>
-    <Navbar/>
+    {/* <Navbar/> */}
     {children}
     {/* <CustomCursor/> */}
     </React.Fragment>

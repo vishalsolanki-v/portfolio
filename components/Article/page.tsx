@@ -12,11 +12,65 @@ interface PostType {
   description: string;
   enclosure: {};
   categories: string[];
+
+  'content:encoded':string,
 }
 
 const Article = ({ articleList }: { articleList: PostType[] }) => {
+  console.log(articleList)
   return (
     <>
+<div  className="border-2 border-x-0">
+  <div className="w-full flex flex-row">
+    <div className="w-1/2"><p className="px-10 py-5 text-[length:var(--text-size-heading-2)]  font-bold">Popular Articles</p></div>
+    <div></div>
+  </div>
+</div>
+
+<div className="w-full">
+  <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 border-t border-l border-neutral-700">
+    {articleList?.map((article, i) => {
+     
+// Output: "Hello World! And some text."
+
+
+      return(
+      <div
+        key={article?.guid}
+        className="flex flex-col gap-4 border-b border-r border-neutral-700 p-6 h-[400px]"
+      >
+        <h2 className="text-xl font-bold leading-snug">
+{article?.title}
+        </h2>
+        <p className="text-neutral-400 leading-relaxed capitalize">
+          {  article.description
+}
+          {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
+          especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
+        </p>
+        <div className="flex items-center gap-3 text-sm text-neutral-400 italic">
+          <span className="not-italic font-medium text-white">By Andy Bell</span>
+          <span>              {article?.pubDate && new Date(article.pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</span>
+        </div>
+        <div className="flex  flex-row gap-2 ">
+          {article?.categories.slice(0,2)?.map((category,index)=>{
+                if(index>3){
+                  return;
+                }
+                return(
+                <div key={category+index} className="border-2 capitalize border-white-500 px-4 py-1 w-fit whitespace-nowrap hover:bg-white hover:text-black font-semibold">{category?.replaceAll('-',' ') || '  '}</div>
+              )})}
+        </div>
+        {/* <span className="inline-block px-2 py-1 border border-neutral-400 text-xs font-medium">
+          CSS
+        </span> */}
+      </div>
+    )})}
+  </div>
+</div>
+
+
+{/* 
       {" "}
       <div className="xl:max-w-screen-xl xl:mx-auto w-full border-rose-500 border-0 sm:py-5 sm:my-[40px] sm:flex">
         <div className="sm:w-1/2 w-full ">
@@ -26,21 +80,6 @@ const Article = ({ articleList }: { articleList: PostType[] }) => {
           <h1 className="text-[40px] leading-[50px] sm:px-0 px-4 pb-4 pt-2 text-left sm:text-xl md:text-2xl lg:text-3xl xl:text-[54px] xl:leading-[60px] font-[700]">
             My Latest <span className="gradient-text2 ">Articles</span>
           </h1>
-          {/* <div className="relative mt-5">
-            <a
-              href="#_"
-              className="relative px-5 py-3 overflow-hidden font-medium text-[#ff7000] bg-white border-0 border-white rounded-lg shadow-inner group"
-            >
-              <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-0 border-gray-600 group-hover:w-full ease"></span>
-              <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-0 border-gray-600 group-hover:w-full ease"></span>
-              <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 primary-gradient rounded-lg group-hover:h-full ease"></span>
-              <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 primary-gradient rounded-lg group-hover:h-full ease"></span>
-              <span className="absolute inset-0 w-full h-full duration-300 delay-300 primary-gradient rounded-lg opacity-0 group-hover:opacity-100"></span>
-              <span className="relative transition-colors duration-300 delay-200  group-hover:text-white ease font-heading-montserrat font-semibold">
-                View all
-              </span>
-            </a>
-          </div> */}
           <div className="w-full h-[400px] border-0 border-rose-500">
             
           </div>
@@ -79,9 +118,14 @@ const Article = ({ articleList }: { articleList: PostType[] }) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
 
 export default Article;
+
+
+// const ArticleCard = ({card})=>{
+
+// }
