@@ -21,7 +21,7 @@ const Home = async () => {
   let articleList: PostType[] = [];
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/medium`
+      `/api/medium`
     );
     articleList = response?.data;
   } catch (error) {
