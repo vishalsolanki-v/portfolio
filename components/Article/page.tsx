@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import { ARTICLELIST } from "@/shared/constants";
 
 interface PostType {
   title: string;
@@ -26,7 +27,7 @@ const Article = ({ articleList }: { articleList: PostType[] }) => {
     pos += step;
     step =+3; // alternate
   }
-  console.log(highlights)
+  // console.log(highlights)
   return (
     <>
 <div  className="border-2 border-x-0 border-b-0">
@@ -38,11 +39,11 @@ const Article = ({ articleList }: { articleList: PostType[] }) => {
 
 <div className="w-full">
   <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-    {articleList?.map((article, i) => {
-     
+    {ARTICLELIST?.map((article, i) => {
+    //  {console.info(articleList,'articleList')}
 // Output: "Hello World! And some text."
 
-console.log(i)
+// console.log(i)
       return(
       <div
         key={article?.guid}
@@ -51,12 +52,10 @@ console.log(i)
         <h2 className="text-xl font-bold leading-snug font-heading-lora">
 {article?.title}
         </h2>
-        <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
+        {/* <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
           {  article?.description || ''
 }
-          {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
-          especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
-        </p>
+        </p> */}
         <div className="flex items-center gap-3 text-sm text-neutral-400 font-heading-montserrat">
           <span className="not-italic font-bold text-white font-heading-lora">By Vishal Solanki</span>
           <span>              {article?.pubDate && new Date(article.pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</span>
@@ -80,20 +79,18 @@ console.log(i)
         className={`flex flex-col gap-4   p-6 h-[400px] border-r-2`}
       >
         <h2 className="text-xl font-bold leading-snug font-heading-lora">
-{articleList[0]?.title}
+{ARTICLELIST[0]?.title}
         </h2>
-        <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
+        {/* <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
           {  articleList[0]?.description || ''
 }
-          {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
-          especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
-        </p>
+        </p> */}
         <div className="flex items-center gap-3 text-sm text-neutral-400 font-heading-montserrat">
           <span className="not-italic font-bold text-white font-heading-lora">By Vishal Solanki</span>
-          <span>              {articleList[0]?.pubDate && new Date(articleList[0].pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</span>
+          <span>              {ARTICLELIST[0]?.pubDate && new Date(ARTICLELIST[0].pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</span>
         </div>
         <div className="flex  flex-row gap-2 ">
-          {articleList[0]?.categories.slice(0,2)?.map((category,index)=>{
+          {ARTICLELIST[0]?.categories.slice(0,2)?.map((category,index)=>{
                 if(index>3){
                   return;
                 }
@@ -110,20 +107,18 @@ console.log(i)
         className={`flex flex-col gap-4   p-6 h-[400px] `}
       >
         <h2 className="text-xl font-bold leading-snug font-heading-lora">
-{articleList[1]?.title}
+{ARTICLELIST[1]?.title}
         </h2>
-        <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
-          {  articleList[1]?.description || ''
+        {/* <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
+          {  ARTICLELIST[1]?.description || ''
 }
-          {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
-          especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
-        </p>
+        </p> */}
         <div className="flex items-center gap-3 text-sm text-neutral-400 font-heading-montserrat">
           <span className="not-italic font-bold text-white font-heading-lora">By Vishal Solanki</span>
-          <span>              {articleList[1]?.pubDate && new Date(articleList[1].pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</span>
+          <span>              {ARTICLELIST[1]?.pubDate && new Date(ARTICLELIST[1].pubDate).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}</span>
         </div>
         <div className="flex  flex-row gap-2 ">
-          {articleList[1]?.categories.slice(0,2)?.map((category,index)=>{
+          {ARTICLELIST[1]?.categories.slice(0,2)?.map((category,index)=>{
                 if(index>3){
                   return;
                 }
