@@ -52,7 +52,7 @@ console.log(i)
 {article?.title}
         </h2>
         <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
-          {  article.description
+          {  article?.description || ''
 }
           {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
           especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
@@ -83,7 +83,7 @@ console.log(i)
 {articleList[0]?.title}
         </h2>
         <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
-          {  articleList[0].description
+          {  articleList[0]?.description || ''
 }
           {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
           especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
@@ -113,7 +113,7 @@ console.log(i)
 {articleList[1]?.title}
         </h2>
         <p className="text-neutral-400 leading-relaxed capitalize font-heading-montserrat">
-          {  articleList[1].description
+          {  articleList[1]?.description || ''
 }
           {/* subgrid in CSS is really handy for getting a nice level of design detail in place,
           especially in terms of maintaining a nice reading line, as Andy shows in this article. */}
