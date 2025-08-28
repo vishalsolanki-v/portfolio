@@ -30,7 +30,7 @@ const Article = ({ articleList }: { articleList: PostType[] }) => {
     <>
       <div className="border-2 border-x-0 border-b-0">
         <div className="w-full flex flex-row">
-          <div className="w-1/2"><p className="px-10 py-5 text-[length:var(--text-size-heading-2)] font-heading-montserrat font-bold">Popular Articles</p></div>
+          <div className="w-1/2"><p className="px-10 py-5 text-[length:var(--text-size-heading-2)] font-heading-montserrat font-bold gradient-text">Popular Articles</p></div>
           <div></div>
         </div>
       </div>

@@ -32,7 +32,7 @@ const SkillsScrollbar = ()=>{
   return(
   <div className='px-10 py-5 border-red-500 border-0  bg-gray-800 flex flex-row w-full'>
 
-  <div className='w-[10%] border-0 border-blue-500 items-top flex justify-start font-bold text-xl pt-1 font-heading-montserrat'>My Skills</div>
+  <div className='w-[10%] border-0 border-blue-500 items-top flex justify-start font-bold text-xl pt-1 font-heading-montserrat gradient-text'>My Skills</div>
   <div className='flex flex-row justify-start gap-5 items-center w-[90%] overflow-y-hidden overflow-x-scroll pb-4 skill-section-custom-scrollbar'>
     {VISHAL_TECH_SKILLS?.map((skill)=>(
       <div key={skill} className=' font-heading-montserrat border-2 border-white-500 px-4 py-1 w-fit whitespace-nowrap hover:bg-white hover:text-black font-semibold'>
