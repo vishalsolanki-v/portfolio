@@ -47,8 +47,8 @@ import React from 'react'
 const Navbar = () => {
   return (
     <div><ul className='flex xl:justify-start justify-center gap-5 md:pl-0 pl-2 flex-wrap'>
-      {NAV_LINKS.map((n,i)=><li key={i} className='text-xl font-heading-lora font-extrabold navLink gradient-text'><Link   target={n.name === "My Resume" ? "_blank" : undefined} 
-          rel={n.name === "My Resume" ? "noopener noreferrer" : undefined} href={n.href || ""}>{n.name}</Link></li>)}
+      {NAV_LINKS.map((n,i)=><li key={i} className='text-xl font-heading-lora font-extrabold navLink gradient-text'><Link   target={n.name === "My Resume" || n.name === "Contact" ? "_blank" : undefined} 
+          rel={n.name === "My Resume" || n.name === "Contact" ? "noopener noreferrer" : undefined} href={n.href || ""}>{n.name}</Link></li>)}
       </ul></div>
   )
 }

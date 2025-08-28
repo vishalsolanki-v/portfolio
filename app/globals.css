@@ -132,7 +132,12 @@
   /* outline: 2px solid blue; */
 }
 body{
-  background: black;
+  /* background: #0D1117; */
+  background-color: #e5e5f7;
+opacity: 1;
+background-image: radial-gradient(#cbcbcb 0.5px, #161719 0.5px);
+background-size: 10px 10px;
+  /* background: linear-gradient(to right, #232526, #161719); */
   color: white;
 }
 .primary-gradient {
