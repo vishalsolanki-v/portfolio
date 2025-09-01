@@ -72,8 +72,8 @@ export function Hero() {
         >
           <Button className="group bg-[#6366f1] text-white hover:bg-[#5558e6]" asChild>
             <Link href="https://drive.google.com/file/d/1-vBArNuSQrOEBtY9KRm6A4aUlKM88NT0/view" target="_blank" rel="noreferrer" download={true}>
-              <span className="mr-2">📜</span> Download Resume
-              <span className="ml-2 transition group-hover:translate-x-0.5">✨</span>
+              <span className="md:mr-2 mr-1">📜</span> Download Resume
+              <span className="md:ml-2 ml-1 transition group-hover:translate-x-0.5">✨</span>
             </Link>
           </Button>
           <Button
@@ -82,8 +82,8 @@ export function Hero() {
             asChild
           >
             <a href="#projects">
-              <span className="mr-2">👀</span> View Projects
-              <span className="ml-2 transition group-hover:translate-x-0.5">🚀</span>
+              <span className="md:mr-2 mr-1">👀</span> View Projects
+              <span className="md:ml-2 ml-1 transition group-hover:translate-x-0.5">🚀</span>
             </a>
           </Button>
         </motion.div>

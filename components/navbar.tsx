@@ -24,15 +24,19 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
-
-  const onSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    const id = href.replace("#", "")
-    const el = document.getElementById(id)
-    if (el) {
-      e.preventDefault()
-      el.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
+const onSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const id = href.replace("#", "")
+  const el = document.getElementById(id)
+  if (el) {
+    e.preventDefault()
+    el.scrollIntoView({
+      behavior: "smooth", 
+      block: "start", 
+      inline: "nearest"
+    })
   }
+}
+
 
   return (
     <header
