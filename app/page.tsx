@@ -11,6 +11,7 @@ import { Achievements } from "@/components/achievements"
 import { Education } from "@/components/education"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
+import { BlogSection } from "@/components/blog"
 
 export default function Page() {
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Page() {
       <Projects />
       <Achievements />
       <Education />
+      <BlogSection />
       <Contact />
       <Footer />
     </main>
