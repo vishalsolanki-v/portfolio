@@ -15,7 +15,7 @@ const projects = [
     title: "Commercial Business Application",
     desc: "Auth, SSR, dynamic rendering for scalability.",
     tech: ["Next.js", "SSR", "Auth"],
-    live: "mytyles.com",
+    live: "https://mytyles.com",
     code: "company",
     image: "/commercial-business-app.png",
   },
@@ -78,13 +78,14 @@ export function Projects() {
               </div>
               <div className="mt-4 flex items-center gap-3">
                 <a
-                  href={p.live}
+                  href={p.live} target="_blank" rel="noreferrer"
                   className="rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white transition-transform hover:-translate-y-0.5 hover:bg-indigo-700"
                 >
                   View Live
                 </a>
                 <a
                   href={p.code}
+                  target="_blank" rel="noreferrer"
                   className="rounded-md border border-slate-300/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-slate-900 backdrop-blur hover:shadow dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100"
                 >
                   {p.code==="company"? "Company Owned" : "View Code"}

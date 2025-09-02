@@ -114,7 +114,7 @@ export function Contact() {
           <h3 className="text-sm font-medium text-indigo-600 dark:text-indigo-400">Connect</h3>
           <ul className="mt-3 space-y-3 text-sm">
             <li>
-              <a className="hover:underline" href="mailto:vishalthakur2463@gmail.com">
+              <a className="hover:underline" href="mailto:vishalthakur2463@gmail.com" target="_blank" rel="noreferrer">
                 📧 Email: vishalthakur2463@gmail.com
               </a>
             </li>
