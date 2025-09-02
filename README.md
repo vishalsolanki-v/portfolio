@@ -11,7 +11,7 @@
 This is my personal **portfolio website**, built with **Next.js, React, and TypeScript**.  
 It showcases my **skills, projects, experience, achievements, and blog posts** in a modern and responsive design.  
 
-🔗 **Live Website:** [https://v0-vishal.vercel.app/](https://v0-vishal.vercel.app/)  
+🔗 **Live Website:** [https://heyvishal.vercel.app/](https://heyvishal.vercel.app/)  
 
 ---
 
