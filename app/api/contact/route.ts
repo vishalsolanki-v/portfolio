@@ -7,6 +7,7 @@ export async function POST(request: Request) {
 
     // ✅ Validate input
     const { name, email, message } = body
+    
     if (!name || !email || !message) {
       return new Response(JSON.stringify({ ok: false, error: "Missing required fields" }), {
         status: 400,
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "application/json" },
     })
   } catch (error) {
-    console.error("[v0] Contact form error:", error)
+    
     return new Response(
       JSON.stringify({ ok: false, error: error instanceof Error ? error.message : "Unknown error" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
