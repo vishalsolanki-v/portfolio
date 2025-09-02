@@ -1,30 +1,62 @@
-# Portfolio website build
+# 🚀 Vishal Solanki – Portfolio Website  
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://v0-vishal.vercel.app/)  
+[![Made with React](https://img.shields.io/badge/Made%20with-React-blue?style=for-the-badge&logo=react)](https://react.dev/)  
+[![Next.js](https://img.shields.io/badge/Framework-Next.js-black?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)  
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)  
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/vishalsolanki-6131s-projects/v0-vishal)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/YiKcz81qBkh)
+---
 
-## Overview
+## 🌟 Overview  
+This is my personal **portfolio website**, built with **Next.js, React, and TypeScript**.  
+It showcases my **skills, projects, experience, achievements, and blog posts** in a modern and responsive design.  
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+🔗 **Live Website:** [https://v0-vishal.vercel.app/](https://v0-vishal.vercel.app/)  
 
-## Deployment
+---
 
-Your project is live at:
+## ✨ Features  
+- 🎨 Clean, modern UI with dark theme  
+- 📄 About Me, Skills, Experience, Projects, and Education sections  
+- 🏆 Achievements showcase  
+- 📝 Blog integration (Medium articles)  
+- 📱 Fully responsive (works on desktop, tablet, and mobile)  
+- 📬 Contact form with direct links to email and socials  
 
-**[https://vercel.com/vishalsolanki-6131s-projects/v0-vishal](https://vercel.com/vishalsolanki-6131s-projects/v0-vishal)**
+---
 
-## Build your app
+## 🛠️ Tech Stack  
+- **Framework:** [Next.js](https://nextjs.org/)  
+- **Frontend:** [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/)  
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)  
+- **Deployment:** [Vercel](https://vercel.com/)  
 
-Continue building your app on:
+---
 
-**[https://v0.app/chat/projects/YiKcz81qBkh](https://v0.app/chat/projects/YiKcz81qBkh)**
+## 📂 Sections  
+- **Home / Hero** → Intro + resume & projects CTA  
+- **About Me** → Short bio + specialties  
+- **Skills** → Categorized technical stack  
+- **Experience** → Professional work history  
+- **Projects** → Live demos + GitHub links  
+- **Achievements** → Awards & recognition  
+- **Education** → Academic background  
+- **Blog** → Latest Medium posts  
+- **Contact** → Contact form + links  
 
-## How It Works
+---
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## 🚀 Getting Started (For Local Development)  
+
+```bash
+# Clone the repository
+git clone https://github.com/vishalsolanki-v/portfolio.git
+
+# Navigate to the project folder
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
