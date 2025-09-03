@@ -3,8 +3,9 @@
 import useSWR from "swr"
 import Image from "next/image"
 import Link from "next/link"
-import { CalendarDays, ExternalLink, ArrowUpRight } from "lucide-react"
+import { CalendarDays, ExternalLink, ArrowUpRight,Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useEffect, useRef, useState } from "react"
 
 type Post = {
   title: string
@@ -17,10 +18,35 @@ type Post = {
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
+function hashPostId(input: string) {
+  let hash = 5381
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash * 33) ^ input.charCodeAt(i)
+  }
+  return (hash >>> 0).toString(36)
+}
+
 export function BlogSection() {
   const { data, error, isLoading } = useSWR<{ posts: Post[] }>("/api/medium", fetcher, {
     revalidateOnFocus: false,
   })
+
+  const didScrollRef = useRef(false)
+  useEffect(() => {
+    if (didScrollRef.current) return
+    if (!data?.posts?.length) return
+    const params = new URLSearchParams(window.location.search)
+    const target = params.get("post")
+    if (!target) return
+    const el = document.getElementById(`post-${target}`)
+    if (el) {
+      didScrollRef.current = true
+      el.scrollIntoView({ behavior: "smooth", block: "start" })
+      const url = new URL(window.location.href)
+      url.searchParams.delete("post")
+      window.history.replaceState({}, "", url.pathname + url.hash)
+    }
+  }, [data])
 
   return (
     <section id="blog" className="py-16 md:py-24">
@@ -51,14 +77,21 @@ export function BlogSection() {
           </div>
         )}
 
-        {data?.posts?.length ? (
+                {data?.posts?.length ? (
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {data.posts.map((post) => (
-              <li key={post.link}>
-                <ArticleCard post={post} />
-              </li>
-            ))}
+            {data.posts.map((post) => {
+              const id = hashPostId(post.link)
+              return (
+                <li key={post.link} id={`post-${id}`}>
+                  <ArticleCard post={post} postId={id} />
+                </li>
+              )
+            })}
           </ul>
+        ) : !isLoading && !error ? (
+          <div className="rounded-lg border border-slate-200 p-6 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-400">
+            No posts found yet. Check back soon!
+          </div>
         ) : null}
 
         <div className="mt-10 flex">
@@ -81,7 +114,7 @@ export function BlogSection() {
   )
 }
 
-function ArticleCard({ post }: { post: Post }) {
+function ArticleCard({ post, postId }: { post: Post; postId: string }) {
   const dateLabel = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString(undefined, {
         year: "numeric",
@@ -89,6 +122,25 @@ function ArticleCard({ post }: { post: Post }) {
         day: "numeric",
       })
     : null
+
+  const [copied, setCopied] = useState(false)
+
+  async function onShare() {
+    try {
+      const url = `${window.location.origin}/share/blog?post=${encodeURIComponent(postId)}`
+      const canNativeShare =
+        typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
+      if (canNativeShare) {
+        await (navigator as any).share({ title: post.title, url })
+      } else {
+        await navigator.clipboard.writeText(url)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      }
+    } catch (e) {
+      console.error("[v0] Share failed:", (e as Error).message)
+    }
+  }
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
@@ -121,7 +173,7 @@ function ArticleCard({ post }: { post: Post }) {
           <p className="mt-3 line-clamp-3 text-sm text-slate-600 dark:text-slate-400">{post.excerpt}</p>
         ) : null}
 
-        <div className="mt-4">
+        <div className="mt-4 flex items-center space-between">
           <Link
             href={post.link}
             target="_blank"
@@ -132,6 +184,25 @@ function ArticleCard({ post }: { post: Post }) {
             Read on Medium
             <ExternalLink className="h-4 w-4" aria-hidden="true" />
           </Link>
+
+          <button
+            type="button"
+            onClick={onShare}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors",
+              "hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800",
+            )}
+            aria-label={`Share '${post.title}' link`}
+          >
+            <Share2 className="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          <span
+            className={cn("text-xs text-slate-500 transition-opacity", copied ? "opacity-100" : "opacity-0")}
+            aria-live="polite"
+          >
+            Copied!
+          </span>
         </div>
       </div>
     </article>
