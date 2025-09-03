@@ -69,6 +69,8 @@ export function Projects() {
               sizes="(max-width: 640px) 100vw,
               (max-width: 1024px) 50vw,
               33vw"
+              width={1120}
+              height={568}
               className="h-40 w-full object-cover"
             />
             <div className="p-5">
