@@ -189,14 +189,14 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
             type="button"
             onClick={onShare}
             className={cn(
-              "relative inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors",
+              "relative inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors overflow-visible",
               "hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800",
             )}
             aria-label={`Share '${post.title}' link`}
           >
             <Share2 className="h-4 w-4" aria-hidden="true" />
           <span
-            className={cn("text-xs text-slate-500 transition-opacity absolute top-0 left-0 right-0", copied ? "opacity-100" : "opacity-0")}
+            className={cn("text-xs text-slate-500 dark:text-white transition-opacity absolute top-[-10px] left-0 right-0", copied ? "opacity-100" : "opacity-0")}
             aria-live="polite"
           >
             Copied!
