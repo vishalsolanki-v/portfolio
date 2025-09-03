@@ -38,23 +38,14 @@ export function About() {
           transition={{ delay: 0.1 }}
         >
           <div className="group relative">
-            {/* <img
-              src="/download.png"
-              alt="Profile photo placeholder"
-              className="h-48 w-48 rounded-full object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105 md:h-60 md:w-60"
-            /> */}
-            <div className="h-48 w-48 rounded-full  md:h-60 md:w-60">
             <Image
-  src="/download.webp"
-  alt="Profile photo of Vishal Solanki"
-  width={240}
-  height={240}
-  sizes="(max-width: 768px) 120px, 240px"
-  // className="rounded-full object-cover"
-  className="rounded-full object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105"
-/>
-
-            </div>
+              src="/download.webp"
+              alt="Profile photo of Vishal Solanki"
+              width={240}
+              height={240}
+              sizes="(max-width: 768px) 120px, 240px"
+              className="object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105 h-48 w-48 rounded-full  md:h-60 md:w-60"
+            />
 
             <div className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-transparent transition " />
           </div>
