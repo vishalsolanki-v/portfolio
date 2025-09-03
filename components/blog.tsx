@@ -173,7 +173,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
           <p className="mt-3 line-clamp-3 text-sm text-slate-600 dark:text-slate-400">{post.excerpt}</p>
         ) : null}
 
-        <div className="mt-4 flex items-center flex-row w-full space-between">
+        <div className="mt-4 flex items-center flex-row w-full justify-between">
           <Link
             href={post.link}
             target="_blank"
