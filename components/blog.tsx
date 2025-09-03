@@ -173,7 +173,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
           <p className="mt-3 line-clamp-3 text-sm text-slate-600 dark:text-slate-400">{post.excerpt}</p>
         ) : null}
 
-        <div className="mt-4 flex items-center space-between">
+        <div className="mt-4 flex items-center flex-row w-full space-between">
           <Link
             href={post.link}
             target="_blank"
@@ -189,20 +189,20 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
             type="button"
             onClick={onShare}
             className={cn(
-              "inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors",
+              "relative inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors",
               "hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800",
             )}
             aria-label={`Share '${post.title}' link`}
           >
             <Share2 className="h-4 w-4" aria-hidden="true" />
-          </button>
-
           <span
-            className={cn("text-xs text-slate-500 transition-opacity", copied ? "opacity-100" : "opacity-0")}
+            className={cn("text-xs text-slate-500 transition-opacity absolute top-0 left-0 right-0", copied ? "opacity-100" : "opacity-0")}
             aria-live="polite"
           >
             Copied!
           </span>
+          </button>
+
         </div>
       </div>
     </article>
