@@ -1,6 +1,7 @@
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
+import Image from "next/image";
 import { useRef } from "react";
 
 const experiences = [
@@ -8,14 +9,14 @@ const experiences = [
     company: "Anagram Media Labs",
     period: "Mar 2025 – Present",
     summary: "Focus on React, Redux Toolkit, WebSockets, AI-powered search.",
-    logo: "/anagram-media-labs-logo.png",
+    logo: "/anagram-media-labs-logo.webp",
     achievements: ["Real-time messaging via WebSockets", "Optimized Redux data flows", "Built AI-driven search UX"],
   },
   {
     company: "Devstringx Technologies",
     period: "May 2022 – March 2025",
     summary: "Built responsive apps, improved performance by 65%, reusable components.",
-    logo: "/devstringx-technologies-logo.png",
+    logo: "/devstringx-technologies-logo.webp",
     achievements: ["65% performance improvement", "Reusable component library", "Core Web Vitals enhancements"],
   },
 ]
@@ -71,11 +72,19 @@ export function Experience() {
               <div className={idx % 2 === 1 ?"md:pl-8" : "md:pr-8"}>
                 <div className="relative rounded-xl border border-black/5 bg-white/60 p-5 backdrop-blur dark:border-white/10 dark:bg-slate-900/50">
                   <div className="flex items-center gap-3">
-                    <img
+                    {/* <img
                       src={e.logo || "/placeholder.svg"}
                       alt={`${e.company} logo`}
                       className="h-10 w-10 rounded-md"
-                    />
+                    /> */}
+                    <Image
+ src={e.logo || "/placeholder.svg"}
+                      alt={`${e.company} logo`}
+  width={40}
+  height={40}
+  className="h-10 w-10 rounded-md"
+  sizes="40px"
+/>
                     <div>
                       <h3 className="text-base font-semibold">{e.company}</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400">{e.period}</p>

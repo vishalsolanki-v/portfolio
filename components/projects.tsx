@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const projects = [
   {
@@ -62,7 +63,17 @@ export function Projects() {
             className="group relative overflow-hidden rounded-xl border border-black/5 bg-white/60 backdrop-blur transition-all hover:shadow-lg dark:border-white/10 dark:bg-slate-900/50"
             variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}
           >
-            <img src={p.image || "/placeholder.svg"} alt={`${p.title} preview`} className="h-40 w-full object-cover" />
+            {/* <img src={p.image || "/placeholder.svg"} alt={`${p.title} preview`} className="h-40 w-full object-cover" /> */}
+            <Image
+  src={p.image || "/placeholder.svg"}
+  alt={`${p.title} preview`}
+  // width={600}
+  // height={400}
+  sizes="(max-width: 640px) 100vw,
+         (max-width: 1024px) 50vw,
+         33vw"
+  className="h-40 w-full object-cover"
+/>
             <div className="p-5">
               <h3 className="text-base font-semibold">{p.title}</h3>
               <p className="mt-1 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">{p.desc}</p>
