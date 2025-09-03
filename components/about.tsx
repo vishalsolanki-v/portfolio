@@ -47,8 +47,8 @@ export function About() {
             <Image
   src="/download.webp"
   alt="Profile photo of Vishal Solanki"
-  // width={240}
-  // height={240}
+  width={240}
+  height={240}
   sizes="(max-width: 768px) 120px, 240px"
   // className="rounded-full object-cover"
   className="rounded-full object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105"
