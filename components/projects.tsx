@@ -9,7 +9,7 @@ const projects = [
     tech: ["Next.js", "React", "Tailwind", "ShadCN"],
     live: "https://vishaldevflow.vercel.app/",
     code: "https://github.com/vishalsolanki-v/stackNext",
-    image: "/stack-overflow-clone-ui.png",
+    image: "/stack-overflow-clone-ui.webp",
   },
   {
     title: "Commercial Business Application",
@@ -17,7 +17,7 @@ const projects = [
     tech: ["Next.js", "SSR", "Auth"],
     live: "https://mytyles.com",
     code: "company",
-    image: "/commercial-business-app.png",
+    image: "/commercial-business-app.webp",
   },
   {
     title: "HR Management System",
@@ -25,7 +25,7 @@ const projects = [
     tech: ["React", "Redux", "Context API"],
     live: "https://clovehr.com/register",
     code: "company",
-    image: "/hr-management-system.png",
+    image: "/hr-management-system.webp",
   },
   {
     title: "Influencer Marketing Platform",
@@ -33,7 +33,7 @@ const projects = [
     tech: ["WebSockets", "AI Search", "Next.js"],
     live: "https://app.inflyx.co/login",
     code: "company",
-    image: "/influencer-marketing-platform.png",
+    image: "/influencer-marketing-platform.webp",
   },
 ]
 

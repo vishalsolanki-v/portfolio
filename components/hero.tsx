@@ -70,7 +70,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.75, duration: 0.5 }}
         >
-          <Button className="group bg-[#6366f1] text-white hover:bg-[#5558e6]" asChild>
+          <Button className="group bg-[#6365f1ed] text-white hover:bg-[#5558e6]" asChild>
             <Link href="https://drive.google.com/file/d/1-vBArNuSQrOEBtY9KRm6A4aUlKM88NT0/view" target="_blank" rel="noreferrer" download={true}>
               <span className="md:mr-2 mr-1">📜</span> Download Resume
               <span className="md:ml-2 ml-1 transition group-hover:translate-x-0.5">✨</span>
