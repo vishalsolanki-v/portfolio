@@ -1,3 +1,5 @@
+// This route is the share target: /share/blog?post=<safeId>
+// It increments a counter in Upstash (if configured) and redirects to "/share/blog/<safeId>"
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const post = url.searchParams.get("post")
@@ -22,12 +24,11 @@ export async function GET(req: Request) {
       })
     }
   } catch (err) {
-    console.log("Upstash increment error:", (err as Error).message)
+    console.log("[v0] Upstash increment error:", (err as Error).message)
   }
 
-  const dest = new URL("/", req.url)
-  dest.searchParams.set("post", post)
-
-  // Redirect to home with the "post" param, the client code will scroll once and clear it.
+  // Previously: redirected to "/?post=<id>#blog", which doesn't expose per-post meta to crawlers.
+  // Now: redirect to path-based page with correct OG/Twitter metadata; that page then client-redirects to home.
+  const dest = new URL(`/share/blog/${encodeURIComponent(post)}`, req.url)
   return Response.redirect(dest.toString(), 302)
 }
