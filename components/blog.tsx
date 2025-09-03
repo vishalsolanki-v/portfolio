@@ -138,7 +138,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
         setTimeout(() => setCopied(false), 2000)
       }
     } catch (e) {
-      console.error("[v0] Share failed:", (e as Error).message)
+      console.error("Share failed:", (e as Error).message)
     }
   }
 

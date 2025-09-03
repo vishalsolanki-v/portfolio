@@ -22,7 +22,7 @@ export async function GET(req: Request) {
       })
     }
   } catch (err) {
-    console.log("[v0] Upstash increment error:", (err as Error).message)
+    console.log("Upstash increment error:", (err as Error).message)
   }
 
   const dest = new URL("/", req.url)

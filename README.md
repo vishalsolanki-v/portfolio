@@ -1,6 +1,6 @@
 # 🚀 Vishal Solanki – Portfolio Website  
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://v0-vishal.vercel.app/)  
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://heyvishal.vercel.app/)  
 [![Made with React](https://img.shields.io/badge/Made%20with-React-blue?style=for-the-badge&logo=react)](https://react.dev/)  
 [![Next.js](https://img.shields.io/badge/Framework-Next.js-black?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)  
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)  
