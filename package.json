@@ -55,6 +55,7 @@
     "expo-gl": "latest",
     "framer-motion": "latest",
     "geist": "latest",
+    "html-entities": "^2.6.0",
     "input-otp": "1.4.1",
     "isomorphic-dompurify": "^2.26.0",
     "jsdom": "^26.1.0",
@@ -84,6 +85,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^22",
     "@types/nodemailer": "^7.0.1",
     "@types/react": "^19",

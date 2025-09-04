@@ -1,15 +1,12 @@
 import Link from "next/link"
-import { getPostById, type MediumPost } from "@/lib/medium"
+import { getPostById } from "@/lib/medium"
 import { getNumber } from "@/lib/redis"
 import ClapButton from "@/components/clap-button"
 import CommentsSection from "@/components/comments"
-import { ArrowUpRight, CalendarDays, ExternalLink, Share2 } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { ArrowUpRight, CalendarDays, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import './blog.css'
-import { sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
-import { unwrapCdata } from "@/utils/unwrapCdata"
+import { normalizeTitle, sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -22,20 +19,20 @@ type Post = {
 export async function generateMetadata({ params }: Props) {
   const { post } = await getPostById(params.id)
   const site = process.env.NEXT_PUBLIC_SITE_URL || ""
-  const title = post?.title || "Blog"
-  const desc = (post?.description || "").replace(/<[^>]+>/g, "").slice(0, 160) || "Read this blog"
   const image = post?.image
     ? post.image.startsWith("http")
       ? post.image
       : `${site}${post.image}`
     : `${site}/blog-social-card.jpg`
   const url = `${site}/blog/${params.id}`
-
+  const title = normalizeTitle(post?.title || 'Blog');
+  const descRaw = (post?.description || '').replace(/<[^>]+>/g, '');
+  const description = normalizeTitle(descRaw).slice(0, 160) || 'Read this blog';
   return {
     title,
-    description: desc,
-    openGraph: { title, description: desc, type: "article", url, images: [{ url: image }] },
-    twitter: { card: "summary_large_image", title, description: desc, images: [image] },
+    description,
+    openGraph: { title, description, type: "article", url, images: [{ url: image }] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   }
 }
 
@@ -43,8 +40,8 @@ export default async function BlogDetailPage({ params }: Props) {
   const { id } = params
   const { post, posts } = await getPostById(id)
   console.log(post?.contentHTML,'post?.contentHTMLpost?.contentHTMLpost?.contentHTML')
-   const raw = unwrapCdata(post?.contentHTML || "");
-const safeHtml = sanitizeAndNormalizeMediumHtml(raw);
+   const title = normalizeTitle(post?.title || 'Blog');
+const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
   console.log(post,'postpost')
   if (!post) {
     return (
@@ -75,7 +72,7 @@ function hashPostId(input: string) {
      <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
       <article className="medium-article">
         <header className="mb-6">
-          <h1 className="text-pretty text-3xl font-semibold">{post.title}</h1>
+          <h1 className="text-pretty text-3xl font-semibold">{title}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {post.isoDate ? new Date(post.isoDate).toLocaleDateString() : ""} • {views} views • {shares} shares
           </p>
