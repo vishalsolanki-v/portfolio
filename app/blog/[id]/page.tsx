@@ -70,7 +70,7 @@ function hashPostId(input: string) {
   return (
     <main className="min-h-dvh bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
      <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-      <article className="medium-article">
+      <article className="medium-article blog-card blog-shell">
         <header className="mb-6">
           <h1 className="text-pretty text-3xl font-semibold">{title}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -94,7 +94,7 @@ function hashPostId(input: string) {
           }}
         />
 
-        <section className=" prose prose-slate dark:prose-invert max-w-none">
+        <section className=" ">
           {/* eslint-disable-next-line react/no-danger */}
           <div dangerouslySetInnerHTML={{ __html: safeHtml || "" }} />
         </section>

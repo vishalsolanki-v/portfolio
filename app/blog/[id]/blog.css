@@ -1,339 +1,269 @@
 /* ============================
-   Medium-like Reader CSS v1.0
-   Scope with .medium-article
+   Blog Reader CSS v2 – Vishal theme
+   Works with: <article class="medium-article">...</article>
+   Optional wrappers: .blog-shell .blog-card (see notes below)
    ============================ */
 
-/* ---------- CSS Variables (easy theming) ---------- */
-:root {
-  --text: #111111;
-  --muted: #555555;
-  --muted-2: #6b7280;
-  --bg: #ffffff;
-  --soft: #f6f7f8;
-  --rule: #e9e9e9;
-  --link: #1A8917;         /* "Medium green" */
-  --link-visited: #11640f;
-  --quote-bar: #e6e6e6;
-  --code: #0b1021;
-  --kbd-bg: #f1f3f5;
-  --kbd-border: #dcdfe4;
-  --radius-s: 6px;
-  --radius-m: 8px;
-  --radius-l: 12px;
-  --maxw: 680px;           /* reading width */
-  --lh: 1.8;               /* base line-height */
-  --shadow-soft: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.06);
+/* ---------- Tokens to match your homepage vibe ---------- */
+:root{
+  --bg: #0a1222;                 /* deep navy background */
+  --surface: rgba(13, 20, 38, .65); /* glassy card surface */
+  --surface-strong: #0f1830;
+  --border: #1b2744;
+  --text: #e7ecf7;
+  --muted: #b3c0d8;
+  --muted-2: #93a0b8;
+  --rule: #16243f;
+  --soft: #0f1b33;
+  --brand: #8a98ff;              /* indigo accent */
+  --brand-strong: #5f6fff;
+  --code-bg: #0d1a32;
+  --shadow: 0 12px 40px rgba(0,0,0,.35);
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 18px;
+
+  --maxw: 760px;                 /* wider, easier reading */
+  --fs: clamp(17px, 1.1vw + 14px, 19px);  /* base font size */
+  --lh: 1.9;                     /* generous line-height */
+
+  --space-1: .5rem;
+  --space-2: .9rem;
+  --space-3: 1.25rem;
+  --space-4: 1.75rem;            /* paragraph rhythm */
+  --space-5: 2.25rem;            /* section rhythm */
+  --space-6: clamp(2.5rem, 6vw, 4rem); /* big section gaps */
 }
 
-/* ---------- Optional dark mode ---------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #e9e9e9;
-    --muted: #c9c9c9;
-    --muted-2: #a6a6a6;
-    --bg: #0f1113;
-    --soft: #171a1f;
-    --rule: #23262b;
-    --link: #22c55e;
-    --link-visited: #16a34a;
-    --quote-bar: #2a2f36;
-    --code: #f3f5ff;
-    --kbd-bg: #1a1e24;
-    --kbd-border: #2a2f36;
+/* optional light mode tokens if you ever switch */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg: #ffffff;
+    --surface: #f7f9ff;
+    --surface-strong: #eef2ff;
+    --border: #dbe4ff;
+    --text: #0f1220;
+    --muted: #475569;
+    --muted-2: #64748b;
+    --rule: #e6eaf7;
+    --soft: #f1f4ff;
+    --brand: #4159ff;
+    --brand-strong: #2f46f6;
+    --code-bg: #f4f6ff;
+    --shadow: 0 8px 24px rgba(40,60,120,.12);
   }
 }
 
-/* ---------- Base / wrapper ---------- */
-.medium-article {
+/* ---------- Optional wrappers to blend with homepage cards ---------- */
+.blog-shell{ padding: clamp(1rem, 2.2vw, 2rem); }
+.blog-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- Reader wrapper ---------- */
+.medium-article{
   color: var(--text);
-  /* background: var(--bg); */
+  font: 400 var(--fs)/var(--lh) system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans","Liberation Sans",sans-serif;
+  max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 1.2rem;
-  /* max-width: var(--maxw); */
-  font: 400 18px/var(--lh) system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  padding: 0 clamp(1rem, 3vw, 1.25rem) var(--space-6);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   word-break: break-word;
 }
 
-/* Smooth spacing rhythm */
-.medium-article > * + * { margin-top: 1.05rem; }
+/* global rhythm: more air between blocks */
+.medium-article > * + * { margin-top: var(--space-4); }
 
-/* ---------- Headings ---------- */
+/* ---------- Headings (bigger + clearer hierarchy) ---------- */
 .medium-article h1,
 .medium-article h2,
 .medium-article h3,
-.medium-article h4 {
-  font-weight: 800;
-  line-height: 1.25;
+.medium-article h4{
   letter-spacing: -0.01em;
   color: var(--text);
 }
-
-.medium-article h1 { font-size: 2.2rem; margin: 1.2em 0 0.6em; }
-.medium-article h2 { font-size: 1.6rem; margin: 1.6em 0 0.75em; }
-.medium-article h3 { font-size: 1.25rem; margin: 1.3em 0 0.6em; font-weight: 700; }
-.medium-article h4 { font-size: 1.05rem; margin: 1.1em 0 0.5em; font-weight: 700; }
-
-/* Subtitle / deck (common in Medium) */
-.medium-article .subtitle,
-.medium-article .deck,
-.medium-article h1 + p em {
-  display: block;
-  font-size: 1.15rem;
-  color: var(--muted);
+.medium-article h1{
+  font-size: clamp(2rem, 2.2vw + 1.2rem, 2.6rem);
+  font-weight: 900;
+  line-height: 1.18;
+  margin: var(--space-5) 0 var(--space-2);
 }
-
-/* ---------- Text & Links ---------- */
-.medium-article p { margin: 1em 0; letter-spacing: 0.01em; }
-.medium-article a {
-  color: var(--link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.medium-article h2{
+  font-size: clamp(1.4rem, 1.2vw + 1rem, 1.85rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin: var(--space-6) 0 var(--space-2);
 }
-.medium-article a:visited { color: var(--link-visited); }
-.medium-article a:hover { text-decoration-thickness: 2px; }
-
-/* Pull quotes / highlights */
-.medium-article mark {
-  background: linear-gradient(transparent 40%, rgba(255,235,59,.6) 0);
-  color: inherit;
-}
-.medium-article .pullquote {
-  font-size: 1.35rem;
+.medium-article h3{
+  font-size: clamp(1.15rem, .6vw + 1rem, 1.35rem);
   font-weight: 700;
-  line-height: 1.35;
-  margin: 2rem 0;
+  margin: var(--space-5) 0 var(--space-2);
+}
+.medium-article h4{
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: var(--space-3) 0 var(--space-2);
 }
 
-/* Small text / fine print */
-.medium-article small { font-size: 0.88em; color: var(--muted-2); }
+/* tighten immediately-after-heading spacing so sections feel grouped */
+.medium-article h2 + *,.medium-article h3 + *{ margin-top: .6em; }
+
+/* lead paragraph for the intro (subtle pop) */
+.medium-article > p:first-of-type{
+  font-size: 1.08em;
+  color: #cfdbff;
+}
+
+/* ---------- Text & links ---------- */
+.medium-article p{ margin: var(--space-3) 0; letter-spacing:.006em; }
+.medium-article a{
+  color: var(--brand);
+  text-decoration: none;
+  border-bottom: 1px dashed color-mix(in srgb, var(--brand) 55%, transparent);
+  transition: border-color .15s ease, color .15s ease;
+}
+.medium-article a:hover{
+  color: var(--brand-strong);
+  border-bottom: 1px solid currentColor;
+}
 
 /* ---------- Lists ---------- */
-.medium-article ul,
-.medium-article ol { padding-left: 1.35rem; }
-.medium-article li { margin: 0.4rem 0; }
-.medium-article li > ul,
-.medium-article li > ol { margin-top: 0.4rem; }
+.medium-article ul, .medium-article ol{
+  padding-left: 1.4rem;
+  margin: var(--space-3) 0;
+}
+.medium-article li + li{ margin-top: .45rem; }
 
-/* ---------- Blockquotes ---------- */
-.medium-article blockquote {
-  margin: 1.5rem 0;
-  padding-left: 1rem;
-  border-left: 4px solid var(--quote-bar);
+/* ---------- Blockquotes (glassy indigo hint) ---------- */
+.medium-article blockquote{
+  margin: var(--space-5) 0;
+  padding: .9rem 1rem;
+  background: linear-gradient(180deg, rgba(98,106,190,.12), rgba(98,106,190,.06));
+  border: 1px solid color-mix(in srgb, var(--brand) 24%, transparent);
+  border-left-width: 4px;
+  border-left-color: var(--brand);
+  border-radius: var(--radius-m);
   color: var(--muted);
-  font-style: italic;
 }
 
-/* ---------- Images & Figures ---------- */
-.medium-article figure { margin: 2rem 0; }
-.medium-article img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-s);
-  box-shadow: var(--shadow-soft);
+/* ---------- Images & figures ---------- */
+.medium-article figure{ margin: var(--space-5) 0; }
+.medium-article img{
+  width: 100%; height: auto; display:block;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
-.medium-article figcaption {
-  text-align: center;
-  font-size: 0.92rem;
+.medium-article figcaption{
+  text-align:center;
   color: var(--muted-2);
-  margin-top: 0.5rem;
+  font-size: .95rem;
+  margin-top: .6rem;
 }
 
-/* Side-by-side images occasionally exported from Medium */
-.medium-article .img-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-}
-@media (max-width: 640px) {
-  .medium-article .img-row { grid-template-columns: 1fr; }
-}
-
-/* ---------- Video & Embeds (responsive iframes) ---------- */
-.medium-article .embed,
-.medium-article iframe[src*="youtube"],
-.medium-article iframe[src*="vimeo"],
-.medium-article iframe[src*="spotify"],
-.medium-article iframe[src*="figma"] {
-  display: block;
+/* ---------- Embeds (responsive) ---------- */
+.medium-article .embed{
   position: relative;
   width: 100%;
-  border: 0;
-  border-radius: var(--radius-m);
-  overflow: hidden;
-  background: var(--soft);
-  box-shadow: var(--shadow-soft);
-}
-
-/* 16:9 wrapper */
-.medium-article .embed,
-.medium-article iframe[src*="youtube"],
-.medium-article iframe[src*="vimeo"] {
   padding-bottom: 56.25%;
   height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+  background: var(--soft);
+  box-shadow: var(--shadow);
 }
-.medium-article .embed > iframe,
-.medium-article iframe[src*="youtube"],
-.medium-article iframe[src*="vimeo"] {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-}
-
-/* Twitter/X blockquotes */
-.medium-article blockquote.twitter-tweet {
-  border-left: 0;
-  padding-left: 0;
-  font-style: normal;
-  color: var(--text);
+.medium-article .embed > iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
 }
 
 /* ---------- Code ---------- */
 .medium-article code,
 .medium-article pre,
 .medium-article kbd,
-.medium-article samp {
+.medium-article samp{
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-/* Inline code */
 .medium-article p code,
 .medium-article li code,
 .medium-article h1 code,
 .medium-article h2 code,
 .medium-article h3 code,
-.medium-article h4 code {
-  background: var(--soft);
-  padding: 0.12em 0.35em;
-  border-radius: 4px;
-  font-size: 0.92em;
-  color: var(--code);
+.medium-article h4 code{
+  background: var(--code-bg);
+  color: #d6e2ff;
+  border: 1px solid var(--border);
+  padding: .16em .42em;
+  border-radius: 6px;
+  font-size: .92em;
 }
 
-/* Code blocks */
-.medium-article pre {
-  background: var(--soft);
-  padding: 1rem 1.1rem;
+.medium-article pre{
+  background: var(--code-bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius-m);
+  padding: 1.1rem 1.25rem;
+  line-height: 1.7;
   overflow: auto;
+  box-shadow: var(--shadow);
+  margin: var(--space-5) 0;
 }
-.medium-article pre code {
-  font-size: 0.95rem;
-  display: block;
-  line-height: 1.6;
-}
-
-/* Optional minimal "syntax" tint (no JS required) */
-.medium-article code[class*="language-"] .token.comment,
-.medium-article pre code .token.comment { opacity: .7; }
-.medium-article code .token.string { color: #0ea5e9; }
-.medium-article code .token.number { color: #eab308; }
-.medium-article code .token.keyword { color: #ef4444; font-weight: 600; }
-.medium-article code .token.function { color: #22c55e; }
-
-/* Keyboard keys */
-.medium-article kbd {
-  background: var(--kbd-bg);
-  border: 1px solid var(--kbd-border);
-  border-bottom-width: 2px;
-  padding: 0.15em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
+.medium-article pre code{ font-size: .97rem; display:block; }
 
 /* ---------- Tables ---------- */
-.medium-article table {
-  width: 100%;
+.medium-article table{
+  width:100%;
   border-collapse: collapse;
-  overflow: hidden;
+  border: 1px solid var(--border);
   border-radius: var(--radius-s);
-  box-shadow: var(--shadow-soft);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  margin: var(--space-5) 0;
 }
-.medium-article thead th {
-  text-align: left;
-  font-weight: 700;
-  border-bottom: 1px solid var(--rule);
-  padding: 0.75rem 0.8rem;
+.medium-article thead th{
+  text-align:left;
+  font-weight:700;
   background: var(--soft);
+  border-bottom: 1px solid var(--border);
+  padding: .8rem .9rem;
 }
-.medium-article td {
+.medium-article td{
   border-bottom: 1px solid var(--rule);
-  padding: 0.7rem 0.8rem;
+  padding: .7rem .9rem;
 }
-.medium-article tr:last-child td { border-bottom: 0; }
+.medium-article tr:last-child td{ border-bottom:0; }
 
 /* ---------- Horizontal Rule ---------- */
-.medium-article hr {
-  border: 0;
-  height: 1px;
-  background: var(--rule);
-  margin: 2rem 0;
+.medium-article hr{
+  height:1px; border:0; background: var(--rule);
+  margin: var(--space-6) 0;
 }
 
-/* ---------- Captions, Byline, Meta ---------- */
+/* ---------- Byline/meta & utilities ---------- */
 .medium-article .byline,
-.medium-article .post-meta {
+.medium-article .post-meta{
   color: var(--muted-2);
-  font-size: 0.95rem;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  font-size:.95rem;
+  display:flex; gap:.6rem; align-items:center;
 }
-.medium-article .byline img {
-  width: 28px; height: 28px; border-radius: 50%;
-  box-shadow: none; /* override figure shadow */
-}
+.medium-article .align-center{ text-align:center; }
+.medium-article .align-right{ text-align:right; }
 
-/* ---------- Footnotes (Medium-like) ---------- */
-.medium-article sup.footnote-ref { font-size: 0.75em; }
-.medium-article .footnotes {
-  font-size: 0.95rem;
-  color: var(--muted);
-  border-top: 1px solid var(--rule);
-  margin-top: 2rem;
-  padding-top: 1rem;
-}
-.medium-article .footnotes ol { padding-left: 1.2rem; }
+/* ---------- Cleanups ---------- */
+.medium-article p:empty{ display:none; }
+.medium-article [style*="margin"]{ margin-block: revert-layer; }
+.medium-article [style*="width"]{ width:100%!important; max-width:100%!important; }
+.medium-article [style*="height"]{ height:auto!important; }
 
-/* ---------- Alignment helpers (Medium sometimes uses inline styles) ---------- */
-.medium-article .align-center { text-align: center; }
-.medium-article .align-right { text-align: right; }
-.medium-article figure.align-wide { margin-left: -2rem; margin-right: -2rem; }
-@media (max-width: 900px) {
-  .medium-article figure.align-wide { margin-left: 0; margin-right: 0; }
-}
-
-/* ---------- Callouts (nice to have) ---------- */
-.medium-article .callout {
-  background: var(--soft);
-  border-left: 4px solid var(--link);
-  padding: 1rem 1.1rem;
-  border-radius: var(--radius-m);
-  color: var(--text);
-}
-
-/* ---------- Utility overrides for messy HTML ---------- */
-/* Many Medium exports include inline margins/widths. Try to normalize the worst offenders */
-.medium-article [style*="margin"] { margin-top: revert-layer; margin-bottom: revert-layer; }
-.medium-article [style*="width"] { width: 100% !important; max-width: 100% !important; }
-.medium-article [style*="height"] { height: auto !important; }
-.medium-article figure [style*="width"] { width: auto !important; max-width: 100% !important; }
-
-/* Remove empty paragraphs that create awkward gaps */
-.medium-article p:empty { display: none; }
-
-/* ---------- Selection ---------- */
-.medium-article ::selection {
-  background: rgba(34,197,94,.25);
-}
-
-/* ---------- Print tweaks ---------- */
-@media print {
-  .medium-article {
-    color: #000;
-    background: #fff;
-    box-shadow: none;
-  }
-  .medium-article a { text-decoration: none; color: #000; }
-  .medium-article img, .medium-article pre { break-inside: avoid; }
+/* ---------- Print ---------- */
+@media print{
+  .medium-article{ color:#000; background:#fff; box-shadow:none; }
+  .medium-article a{ color:#000; border-bottom: none; }
+  .medium-article img,.medium-article pre{ break-inside: avoid; }
 }
