@@ -16,7 +16,10 @@ const links = [
   { href: "#contact", label: "Contact" },
 ]
 
-export function Navbar() {
+type NavbarProps = {
+  showOtherLinks: boolean;
+};
+export function Navbar({showOtherLinks}:NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -53,7 +56,7 @@ const onSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => 
           Vishal Solanki
         </a>
         <div className="hidden items-center gap-4 md:flex">
-          {links.map((l) => (
+          {showOtherLinks && links.map((l) => (
             <a
               key={l.href}
               href={l.href}
