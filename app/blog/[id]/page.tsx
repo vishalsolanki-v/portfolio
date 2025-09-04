@@ -7,6 +7,7 @@ import { ArrowUpRight, CalendarDays, ExternalLink, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 import Image from "next/image"
+import './blog.css'
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -91,7 +92,7 @@ function hashPostId(input: string) {
           }}
         />
 
-        <section className="prose prose-slate dark:prose-invert max-w-none">
+        <section className="medium-article">
           {/* eslint-disable-next-line react/no-danger */}
           <div dangerouslySetInnerHTML={{ __html: post.contentHTML || "" }} />
         </section>
