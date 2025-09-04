@@ -42,6 +42,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function BlogDetailPage({ params }: Props) {
   const { id } = params
   const { post, posts } = await getPostById(id)
+  console.log(post?.contentHTML,'post?.contentHTMLpost?.contentHTMLpost?.contentHTML')
    const raw = unwrapCdata(post?.contentHTML || "");
 const safeHtml = sanitizeAndNormalizeMediumHtml(raw);
   console.log(post,'postpost')
