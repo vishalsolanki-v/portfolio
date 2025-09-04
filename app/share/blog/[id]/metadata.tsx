@@ -1,17 +1,9 @@
-/* 
-  Server-only metadata generator for /share/blog/[id]
-  - Scrapes Medium RSS to find the matching post by link-derived id
-  - Sets Open Graph and Twitter meta so social previews show post-specific info
-  - Also increments a click counter in Upstash Redis (if configured)
-*/
-
 import type { Metadata } from "next"
 
 function derivePostIdFromLink(link: string) {
   try {
     const u = new URL(link)
-    // e.g. /@handle/some-title-abcdef123456 -> use the full path as slug-like id
-    const path = u.pathname.replace(/^\/|\/$/g, "")
+   const path = u.pathname.replace(/^\/|\/$/g, "")
     return path.split("/").join("-")
   } catch {
     return link
@@ -29,9 +21,7 @@ type FeedItem = {
 }
 
 async function getMediumFeed(): Promise<FeedItem[]> {
-  // Fetch Medium RSS (server-side; no CORS) and parse minimally
   const res = await fetch("https://medium.com/feed/@vishalthakur2463", {
-    // Cache a bit to avoid rate-limits; crawlers might hit this
     next: { revalidate: 900 },
   })
   const xml = await res.text()
@@ -50,7 +40,6 @@ async function getMediumFeed(): Promise<FeedItem[]> {
         block.match(/<description>([\s\S]*?)<\/description>/))?.[1]
         ?.replace(/<[^>]+>/g, "")
         .trim() || ""
-    // Try to find first image from content:encoded or description
     const contentBlock =
       (block.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]><\/content:encoded>/) || [null, ""])[1] || ""
     const firstImg =
@@ -72,7 +61,6 @@ async function incrementClick(id: string) {
     const url = process.env.KV_REST_API_URL
     const token = process.env.KV_REST_API_TOKEN || process.env.KV_REST_API_READ_ONLY_TOKEN
     if (!url || !process.env.KV_REST_API_TOKEN) {
-      // Read-only or missing—skip increment silently
       return
     }
     await fetch(`${url}/incr/blog:clicks:${id}`, {
@@ -98,7 +86,6 @@ export async function generateMetadata({
   const items = await getMediumFeed()
   const post = items.find((p) => derivePostIdFromLink(p.link) === id)
 
-  // increment click counter (best-effort)
   incrementClick(id)
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"

@@ -73,7 +73,6 @@ export async function generateMetadata({
   const items = await getMediumFeed()
   const post = items.find((p) => hashPostId(p.link) === id)
 
-  // fire-and-forget metric
   incrementShare(id)
 
   const title = post?.title || "Blog post"
