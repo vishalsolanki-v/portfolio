@@ -45,7 +45,7 @@ export default function Page() {
   }, [])
   return (
     <main className="min-h-dvh bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <Navbar />
+      <Navbar showOtherLinks={true}/>
       <Hero />
       <About />
       <Skills />

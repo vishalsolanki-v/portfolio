@@ -7,6 +7,7 @@ import { ArrowUpRight, CalendarDays, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import './blog.css'
 import { normalizeTitle, sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
+import { Navbar } from "@/components/navbar"
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -68,19 +69,21 @@ function hashPostId(input: string) {
   const others = (posts || []).filter((p) => p.id !== id).slice(0, 4)
 
   return (
+    <>
+    <Navbar showOtherLinks={false}/>
     <main className="min-h-dvh bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-     <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-      <article className="medium-article blog-card blog-shell">
-        <header className="mb-6">
-          <h1 className="text-pretty text-3xl font-semibold">{title}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {post.isoDate ? new Date(post.isoDate).toLocaleDateString() : ""} • {views} views • {shares} shares
-          </p>
-        </header>
+      <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
+        <article className="medium-article blog-card blog-shell">
+          <header className="mb-6">
+            <h1 className="text-pretty text-3xl font-semibold">{title}</h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {post.isoDate ? new Date(post.isoDate).toLocaleDateString() : ""} • {views} views • {shares} shares
+            </p>
+          </header>
 
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
               (function(){
                 try{
                   var k='viewed:${id}';
@@ -91,73 +94,72 @@ function hashPostId(input: string) {
                 }catch(e){}
               })();
             `,
-          }}
-        />
+            }} />
 
-        <section className=" ">
-          {/* eslint-disable-next-line react/no-danger */}
-          <div dangerouslySetInnerHTML={{ __html: safeHtml || "" }} />
+          <section className=" ">
+            {/* eslint-disable-next-line react/no-danger */}
+            <div dangerouslySetInnerHTML={{ __html: safeHtml || "" }} />
+          </section>
+
+          <div className="mt-8 flex items-center gap-4">
+            <ClapButton postId={id} initialCount={claps} />
+            {/* <Link
+      href={post.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-sm text-indigo-600 hover:underline"
+    >
+      Read on Medium
+
+    </Link> */}
+            <Link
+              href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-indigo-600 hover:underline dark:text-indigo-400"
+              aria-label={`Read '${post.title}' on Medium (opens in a new tab)`}
+            >
+              Read on Medium
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </article>
+
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold">Comments</h2>
+          <CommentsSection postId={id} />
         </section>
 
-        <div className="mt-8 flex items-center gap-4">
-          <ClapButton postId={id} initialCount={claps} />
-          {/* <Link
-            href={post.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-indigo-600 hover:underline"
-          >
-            Read on Medium
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold mb-4">Readers Also Enjoyed</h2>
+          {/* <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      {others.map((p: MediumPost) => (
+        <Link key={p.id} href={`/blog/${p.id}`} className="rounded-lg border p-4 hover:bg-accent">
+          <h3 className="font-medium">{p.title}</h3>
+          <p
+            className="mt-2 line-clamp-2 text-sm text-muted-foreground"
+            dangerouslySetInnerHTML={{ __html: p.description || "" }}
+          />
+        </Link>
+      ))}
 
-          </Link> */}
-          <Link
-            href={post.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-indigo-600 hover:underline dark:text-indigo-400"
-            aria-label={`Read '${post.title}' on Medium (opens in a new tab)`}
-          >
-            Read on Medium
-            <ExternalLink className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-      </article>
 
-      <section className="mt-12">
-        <h2 className="text-xl font-semibold">Comments</h2>
-        <CommentsSection postId={id} />
+    </div> */}
+          {others?.length ? (
+            <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {others.map((post) => {
+                const id = hashPostId(post.link)
+                return (
+                  <li key={post.link} id={`post-${id}`} className="scroll-mt-28 md:scroll-mt-32">
+                    <ArticleCard post={post} postId={id} />
+                  </li>
+                )
+              })}
+            </ul>
+          ) : null}
+        </section>
       </section>
-
-      <section className="mt-12">
-        <h2 className="text-xl font-semibold mb-4">Readers Also Enjoyed</h2>
-        {/* <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          {others.map((p: MediumPost) => (
-            <Link key={p.id} href={`/blog/${p.id}`} className="rounded-lg border p-4 hover:bg-accent">
-              <h3 className="font-medium">{p.title}</h3>
-              <p
-                className="mt-2 line-clamp-2 text-sm text-muted-foreground"
-                dangerouslySetInnerHTML={{ __html: p.description || "" }}
-              />
-            </Link>
-          ))}
-
-
-        </div> */}
-        {others?.length ? (
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {others.map((post) => {
-              const id = hashPostId(post.link);
-              return (
-                <li key={post.link} id={`post-${id}`} className="scroll-mt-28 md:scroll-mt-32">
-                  <ArticleCard post={post} postId={id} />
-                </li>
-              )
-            })}
-          </ul>
-        ) : null}
-      </section>
-     </section>
-    </main>
+    </main></>
   )
 }
 
