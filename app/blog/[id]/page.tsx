@@ -9,6 +9,7 @@ import { useState } from "react"
 import Image from "next/image"
 import './blog.css'
 import { sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
+import { unwrapCdata } from "@/utils/unwrapCdata"
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -41,7 +42,8 @@ export async function generateMetadata({ params }: Props) {
 export default async function BlogDetailPage({ params }: Props) {
   const { id } = params
   const { post, posts } = await getPostById(id)
-   const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
+   const raw = unwrapCdata(post?.contentHTML || "");
+const safeHtml = sanitizeAndNormalizeMediumHtml(raw);
   console.log(post,'postpost')
   if (!post) {
     return (
