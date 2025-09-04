@@ -47,19 +47,17 @@ async function getMediumFeed(): Promise<FeedItem[]> {
   return items
 }
 
-async function incrementClick(id: string) {
+async function incrementShare(id: string) {
   try {
     const url = process.env.KV_REST_API_URL
     const token = process.env.KV_REST_API_TOKEN
     if (!url || !token) return
-    await fetch(`${url}/incr/blog:clicks:${id}`, {
+    await fetch(`${url}/incr/blog:share:${id}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     })
-  } catch {
-    // ignore metric errors
-  }
+  } catch {}
 }
 
 export async function generateMetadata({
@@ -76,7 +74,7 @@ export async function generateMetadata({
   const post = items.find((p) => hashPostId(p.link) === id)
 
   // fire-and-forget metric
-  incrementClick(id)
+  incrementShare(id)
 
   const title = post?.title || "Blog post"
   const description = (post?.description && post.description.slice(0, 200)) || "Read this post on my portfolio."

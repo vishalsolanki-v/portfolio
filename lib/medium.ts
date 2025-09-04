@@ -6,6 +6,8 @@ export type MediumPost = {
   image?: string | null
   date: string
   author?: string | null
+  contentHTML?: string
+  isoDate?: string
 }
 
 // Stable, short ID based on the canonical link (same on server & client)
@@ -38,13 +40,31 @@ function decodeEntities(text: string): string {
     .replace(/&#39;/g, "'")
 }
 
-export async function fetchMediumFeed(username: string) {
+function sanitizeHtml(html?: string): string {
+  if (!html) return ""
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/\son\w+="[^"]*"/gi, "")
+    .replace(/\son\w+='[^']*'/gi, "")
+    .replace(/href=["']javascript:[^"']*["']/gi, 'href="#"')
+}
+
+export async function fetchMediumFeedXML(username: string) {
   const res = await fetch(`https://medium.com/feed/@${username}`, {
     headers: { Accept: "application/rss+xml" },
     next: { revalidate: 900 },
   })
   if (!res.ok) throw new Error(`Failed to fetch Medium feed: ${res.status}`)
   return await res.text()
+}
+
+// Re-export a posts-level fetcher expected by admin and other pages
+const DEFAULT_MEDIUM_USERNAME = process.env.MEDIUM_USER_NAME || "vishalthakur2463"
+
+export async function fetchMediumFeed(username: string = DEFAULT_MEDIUM_USERNAME): Promise<MediumPost[]> {
+  const xml = await fetchMediumFeedXML(username)
+  return parseMediumFeed(xml)
 }
 
 export function parseMediumFeed(xml: string): MediumPost[] {
@@ -62,6 +82,7 @@ export function parseMediumFeed(xml: string): MediumPost[] {
     const description = stripHtml(decodeEntities(descRaw))
     const contentEncoded = get("content:encoded")
     const image = extractFirstImage(contentEncoded || descRaw)
+    const contentHTML = sanitizeHtml(contentEncoded || "")
 
     return {
       id: hashPostId(link || title),
@@ -70,7 +91,21 @@ export function parseMediumFeed(xml: string): MediumPost[] {
       description,
       image,
       date: pubDate,
+      isoDate: pubDate,
       author: null,
+      contentHTML,
     }
   })
+}
+
+export async function getPostById(
+  id: string,
+  username: string = DEFAULT_MEDIUM_USERNAME,
+): Promise<{
+  post?: MediumPost
+  posts: MediumPost[]
+}> {
+  const posts = await fetchMediumFeed(username)
+  const post = posts.find((p) => p.id === id)
+  return { post, posts }
 }

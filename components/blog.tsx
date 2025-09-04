@@ -3,7 +3,7 @@
 import useSWR from "swr"
 import Image from "next/image"
 import Link from "next/link"
-import { CalendarDays, ExternalLink, ArrowUpRight,Share2 } from "lucide-react"
+import { CalendarDays, ExternalLink, ArrowUpRight, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useEffect, useRef, useState } from "react"
 
@@ -49,7 +49,7 @@ export function BlogSection() {
   }, [data])
 
   return (
-    <section id="blog" className="py-16 md:py-24">
+    <section id="blog" className="py-16 md:py-24 scroll-mt-28 md:scroll-mt-32" aria-busy={isLoading ? "true" : "false"}>
       <div className="mx-auto max-w-6xl px-4">
         <header className="mb-8 md:mb-12">
           <h2 className="text-pretty text-3xl font-semibold tracking-tight md:text-4xl">Latest from Medium</h2>
@@ -59,7 +59,7 @@ export function BlogSection() {
         </header>
 
         {isLoading && (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3" role="status" aria-live="polite">
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
@@ -77,12 +77,12 @@ export function BlogSection() {
           </div>
         )}
 
-                {data?.posts?.length ? (
+        {data?.posts?.length ? (
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {data.posts.map((post) => {
               const id = hashPostId(post.link)
               return (
-                <li key={post.link} id={`post-${id}`}>
+                <li key={post.link} id={`post-${id}`} className="scroll-mt-28 md:scroll-mt-32">
                   <ArticleCard post={post} postId={id} />
                 </li>
               )
@@ -127,7 +127,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
 
   async function onShare() {
     try {
-      const url = `${window.location.origin}/share/blog?post=${encodeURIComponent(postId)}`
+      const url = `${window.location.origin}/share/blog/${encodeURIComponent(postId)}`
       const canNativeShare =
         typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
       if (canNativeShare) {
@@ -138,7 +138,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
         setTimeout(() => setCopied(false), 2000)
       }
     } catch (e) {
-      console.error("Share failed:", (e as Error).message)
+      console.error("[v0] Share failed:", (e as Error).message)
     }
   }
 
@@ -173,7 +173,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
           <p className="mt-3 line-clamp-3 text-sm text-slate-600 dark:text-slate-400">{post.excerpt}</p>
         ) : null}
 
-        <div className="mt-4 flex items-center flex-row w-full justify-between">
+        <div className="mt-4 flex items-center flex-row justify-between w-full">
           <Link
             href={post.link}
             target="_blank"
@@ -185,18 +185,27 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
             <ExternalLink className="h-4 w-4" aria-hidden="true" />
           </Link>
 
+          <Link
+            href={`/blog/${encodeURIComponent(postId)}`}
+             target="_blank"
+            className="inline-flex items-center gap-2 text-sm text-indigo-600 hover:underline dark:text-indigo-400"
+            aria-label={`Read '${post.title}' on this site`}
+          >
+            Read on site
+          </Link>
+
           <button
             type="button"
             onClick={onShare}
             className={cn(
-              "relative inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors overflow-visible",
+              "inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors relative",
               "hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800",
             )}
             aria-label={`Share '${post.title}' link`}
           >
             <Share2 className="h-4 w-4" aria-hidden="true" />
           <span
-            className={cn("text-xs text-slate-500 dark:text-white transition-opacity absolute top-[-10px] left-0 right-0", copied ? "opacity-100" : "opacity-0")}
+            className={cn("text-xs text-slate-500 transition-opacity absolute top-[-10px] left-0 right-0", copied ? "opacity-100" : "opacity-0")}
             aria-live="polite"
           >
             Copied!

@@ -1,0 +1,269 @@
+/* ============================
+   Blog Reader CSS v2 – Vishal theme
+   Works with: <article class="medium-article">...</article>
+   Optional wrappers: .blog-shell .blog-card (see notes below)
+   ============================ */
+
+/* ---------- Tokens to match your homepage vibe ---------- */
+:root{
+  --bg: #0a1222;                 /* deep navy background */
+  --surface: rgba(13, 20, 38, .65); /* glassy card surface */
+  --surface-strong: #0f1830;
+  --border: #1b2744;
+  --text: #e7ecf7;
+  --muted: #b3c0d8;
+  --muted-2: #93a0b8;
+  --rule: #16243f;
+  --soft: #0f1b33;
+  --brand: #8a98ff;              /* indigo accent */
+  --brand-strong: #5f6fff;
+  --code-bg: #0d1a32;
+  --shadow: 0 12px 40px rgba(0,0,0,.35);
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 18px;
+
+  --maxw: 760px;                 /* wider, easier reading */
+  --fs: clamp(17px, 1.1vw + 14px, 19px);  /* base font size */
+  --lh: 1.9;                     /* generous line-height */
+
+  --space-1: .5rem;
+  --space-2: .9rem;
+  --space-3: 1.25rem;
+  --space-4: 1.75rem;            /* paragraph rhythm */
+  --space-5: 2.25rem;            /* section rhythm */
+  --space-6: clamp(2.5rem, 6vw, 4rem); /* big section gaps */
+}
+
+/* optional light mode tokens if you ever switch */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg: #ffffff;
+    --surface: #f7f9ff;
+    --surface-strong: #eef2ff;
+    --border: #dbe4ff;
+    --text: #0f1220;
+    --muted: #475569;
+    --muted-2: #64748b;
+    --rule: #e6eaf7;
+    --soft: #f1f4ff;
+    --brand: #4159ff;
+    --brand-strong: #2f46f6;
+    --code-bg: #f4f6ff;
+    --shadow: 0 8px 24px rgba(40,60,120,.12);
+  }
+}
+
+/* ---------- Optional wrappers to blend with homepage cards ---------- */
+.blog-shell{ padding: clamp(1rem, 2.2vw, 2rem); }
+.blog-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- Reader wrapper ---------- */
+.medium-article{
+  color: var(--text);
+  font: 400 var(--fs)/var(--lh) system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans","Liberation Sans",sans-serif;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 1.25rem) var(--space-6);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  word-break: break-word;
+}
+
+/* global rhythm: more air between blocks */
+.medium-article > * + * { margin-top: var(--space-4); }
+
+/* ---------- Headings (bigger + clearer hierarchy) ---------- */
+.medium-article h1,
+.medium-article h2,
+.medium-article h3,
+.medium-article h4{
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.medium-article h1{
+  font-size: clamp(2rem, 2.2vw + 1.2rem, 2.6rem);
+  font-weight: 900;
+  line-height: 1.18;
+  margin: var(--space-5) 0 var(--space-2);
+}
+.medium-article h2{
+  font-size: clamp(1.4rem, 1.2vw + 1rem, 1.85rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin: var(--space-6) 0 var(--space-2);
+}
+.medium-article h3{
+  font-size: clamp(1.15rem, .6vw + 1rem, 1.35rem);
+  font-weight: 700;
+  margin: var(--space-5) 0 var(--space-2);
+}
+.medium-article h4{
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+/* tighten immediately-after-heading spacing so sections feel grouped */
+.medium-article h2 + *,.medium-article h3 + *{ margin-top: .6em; }
+
+/* lead paragraph for the intro (subtle pop) */
+.medium-article > p:first-of-type{
+  font-size: 1.08em;
+  color: #cfdbff;
+}
+
+/* ---------- Text & links ---------- */
+.medium-article p{ margin: var(--space-3) 0; letter-spacing:.006em; }
+.medium-article a{
+  color: var(--brand);
+  text-decoration: none;
+  border-bottom: 1px dashed color-mix(in srgb, var(--brand) 55%, transparent);
+  transition: border-color .15s ease, color .15s ease;
+}
+.medium-article a:hover{
+  color: var(--brand-strong);
+  border-bottom: 1px solid currentColor;
+}
+
+/* ---------- Lists ---------- */
+.medium-article ul, .medium-article ol{
+  padding-left: 1.4rem;
+  margin: var(--space-3) 0;
+}
+.medium-article li + li{ margin-top: .45rem; }
+
+/* ---------- Blockquotes (glassy indigo hint) ---------- */
+.medium-article blockquote{
+  margin: var(--space-5) 0;
+  padding: .9rem 1rem;
+  background: linear-gradient(180deg, rgba(98,106,190,.12), rgba(98,106,190,.06));
+  border: 1px solid color-mix(in srgb, var(--brand) 24%, transparent);
+  border-left-width: 4px;
+  border-left-color: var(--brand);
+  border-radius: var(--radius-m);
+  color: var(--muted);
+}
+
+/* ---------- Images & figures ---------- */
+.medium-article figure{ margin: var(--space-5) 0; }
+.medium-article img{
+  width: 100%; height: auto; display:block;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.medium-article figcaption{
+  text-align:center;
+  color: var(--muted-2);
+  font-size: .95rem;
+  margin-top: .6rem;
+}
+
+/* ---------- Embeds (responsive) ---------- */
+.medium-article .embed{
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+  background: var(--soft);
+  box-shadow: var(--shadow);
+}
+.medium-article .embed > iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
+}
+
+/* ---------- Code ---------- */
+.medium-article code,
+.medium-article pre,
+.medium-article kbd,
+.medium-article samp{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.medium-article p code,
+.medium-article li code,
+.medium-article h1 code,
+.medium-article h2 code,
+.medium-article h3 code,
+.medium-article h4 code{
+  background: var(--code-bg);
+  color: #d6e2ff;
+  border: 1px solid var(--border);
+  padding: .16em .42em;
+  border-radius: 6px;
+  font-size: .92em;
+}
+
+.medium-article pre{
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  padding: 1.1rem 1.25rem;
+  line-height: 1.7;
+  overflow: auto;
+  box-shadow: var(--shadow);
+  margin: var(--space-5) 0;
+}
+.medium-article pre code{ font-size: .97rem; display:block; }
+
+/* ---------- Tables ---------- */
+.medium-article table{
+  width:100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-s);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  margin: var(--space-5) 0;
+}
+.medium-article thead th{
+  text-align:left;
+  font-weight:700;
+  background: var(--soft);
+  border-bottom: 1px solid var(--border);
+  padding: .8rem .9rem;
+}
+.medium-article td{
+  border-bottom: 1px solid var(--rule);
+  padding: .7rem .9rem;
+}
+.medium-article tr:last-child td{ border-bottom:0; }
+
+/* ---------- Horizontal Rule ---------- */
+.medium-article hr{
+  height:1px; border:0; background: var(--rule);
+  margin: var(--space-6) 0;
+}
+
+/* ---------- Byline/meta & utilities ---------- */
+.medium-article .byline,
+.medium-article .post-meta{
+  color: var(--muted-2);
+  font-size:.95rem;
+  display:flex; gap:.6rem; align-items:center;
+}
+.medium-article .align-center{ text-align:center; }
+.medium-article .align-right{ text-align:right; }
+
+/* ---------- Cleanups ---------- */
+.medium-article p:empty{ display:none; }
+.medium-article [style*="margin"]{ margin-block: revert-layer; }
+.medium-article [style*="width"]{ width:100%!important; max-width:100%!important; }
+.medium-article [style*="height"]{ height:auto!important; }
+
+/* ---------- Print ---------- */
+@media print{
+  .medium-article{ color:#000; background:#fff; box-shadow:none; }
+  .medium-article a{ color:#000; border-bottom: none; }
+  .medium-article img,.medium-article pre{ break-inside: avoid; }
+}
