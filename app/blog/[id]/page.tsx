@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { useState } from "react"
 import Image from "next/image"
 import './blog.css'
+import { sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function BlogDetailPage({ params }: Props) {
   const { id } = params
   const { post, posts } = await getPostById(id)
+   const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
   console.log(post,'postpost')
   if (!post) {
     return (
@@ -94,7 +96,7 @@ function hashPostId(input: string) {
 
         <section className=" prose prose-slate dark:prose-invert max-w-none">
           {/* eslint-disable-next-line react/no-danger */}
-          <div dangerouslySetInnerHTML={{ __html: post.contentHTML || "" }} />
+          <div dangerouslySetInnerHTML={{ __html: safeHtml || "" }} />
         </section>
 
         <div className="mt-8 flex items-center gap-4">

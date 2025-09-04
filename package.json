@@ -56,6 +56,8 @@
     "framer-motion": "latest",
     "geist": "latest",
     "input-otp": "1.4.1",
+    "isomorphic-dompurify": "^2.26.0",
+    "jsdom": "^26.1.0",
     "lucide-react": "^0.454.0",
     "mongodb": "^6.19.0",
     "next": "15.2.4",
@@ -83,7 +85,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
-"@types/nodemailer": "^7.0.1",
+    "@types/nodemailer": "^7.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8.5",
