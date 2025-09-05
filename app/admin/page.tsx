@@ -1,28 +1,32 @@
-import Link from "next/link"
 import { fetchMediumFeed } from "@/lib/medium"
-import { getJSON, getNumber } from "@/lib/redis"
+import { getJSON, getNumber, get } from "@/lib/redis"
+import AdminClient from "./admin-client"
 
 export default async function AdminPage({ searchParams }: { searchParams: { key?: string } }) {
-  const ok = (searchParams.key || "") === (process.env.ADMIN_SECRET || "")
-  console.log(ok,searchParams,process.env.ADMIN_SECRET)
+  const adminKey = searchParams.key || ""
+  const ok = adminKey === (process.env.ADMIN_SECRET || "")
+
   if (!ok) {
     return (
       <main className="container mx-auto max-w-md px-4 py-12">
-        <h1 className="text-2xl font-semibold">Admin</h1>
-        <form className="mt-6">
-          <label className="block text-sm">
-            Secret key
-            <input
-              name="key"
-              type="password"
-              className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm"
-              placeholder="Enter secret"
-            />
-          </label>
-          <button className="mt-4 rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700">
-            Enter
-          </button>
-        </form>
+        <div className="rounded-lg border bg-card p-6">
+          <h1 className="text-2xl font-semibold">Admin Access</h1>
+          <p className="mt-2 text-sm text-muted-foreground">Enter your admin secret to continue</p>
+          <form className="mt-6">
+            <label className="block text-sm font-medium">
+              Secret Key
+              <input
+                name="key"
+                type="password"
+                className="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Enter admin secret"
+              />
+            </label>
+            <button className="mt-4 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              Access Dashboard
+            </button>
+          </form>
+        </div>
       </main>
     )
   }
@@ -40,40 +44,20 @@ export default async function AdminPage({ searchParams }: { searchParams: { key?
     }),
   )
 
-  return (
-    <main className="container mx-auto max-w-4xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Counts and latest comments by post.</p>
-      <div className="mt-6 overflow-x-auto rounded-md border">
-        <table className="min-w-full text-sm">
-          <thead className="bg-accent">
-            <tr>
-              <th className="px-3 py-2 text-left">Title</th>
-              <th className="px-3 py-2 text-left">Shares</th>
-              <th className="px-3 py-2 text-left">Views</th>
-              <th className="px-3 py-2 text-left">Claps</th>
-              <th className="px-3 py-2 text-left">Comments</th>
-              <th className="px-3 py-2 text-left">Open</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.id} className="border-t">
-                <td className="px-3 py-2">{r.title}</td>
-                <td className="px-3 py-2">{r.share}</td>
-                <td className="px-3 py-2">{r.view}</td>
-                <td className="px-3 py-2">{r.claps}</td>
-                <td className="px-3 py-2">{r.commentsCount}</td>
-                <td className="px-3 py-2">
-                  <Link href={`/blog/${r.id}`} className="text-indigo-600 hover:underline">
-                    View
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </main>
-  )
+  const totalShares = rows.reduce((sum, row) => sum + row.share, 0)
+  const totalViews = rows.reduce((sum, row) => sum + row.view, 0)
+  const totalClaps = rows.reduce((sum, row) => sum + row.claps, 0)
+  const totalComments = rows.reduce((sum, row) => sum + row.commentsCount, 0)
+
+  const countingDisabled = (await get("admin:disable-counting")) === "true"
+
+  const initialStats = {
+    posts: rows,
+    totalShares,
+    totalViews,
+    totalClaps,
+    totalComments,
+  }
+
+  return <AdminClient initialStats={initialStats} initialCountingDisabled={countingDisabled} adminKey={adminKey} />
 }
