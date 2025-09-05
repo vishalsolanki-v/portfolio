@@ -67,7 +67,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const id = params.id
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
-  const shareUrl = `${siteUrl}/share/blog/${encodeURIComponent(id)}`
+  const shareUrl = `${siteUrl}/blog/${encodeURIComponent(id)}`
   const targetUrl = `${siteUrl}/?post=${encodeURIComponent(id)}#blog`
 
   const items = await getMediumFeed()
