@@ -60,17 +60,28 @@ export default function AdminClient({ initialStats, initialCountingDisabled, adm
 
   async function toggleCounting() {
     try {
+      console.log("[v0] Toggling counting, making POST request to /api/admin/toggle-counting")
+      console.log("[v0] Request body:", { key: adminKey })
+
       const res = await fetch("/api/admin/toggle-counting", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: adminKey }),
       })
+
+      console.log("[v0] Response status:", res.status)
+      console.log("[v0] Response ok:", res.ok)
+
       if (res.ok) {
         const data = await res.json()
+        console.log("[v0] Response data:", data)
         setCountingDisabled(data.disabled)
+      } else {
+        const errorText = await res.text()
+        console.error("[v0] Error response:", errorText)
       }
     } catch (error) {
-      console.error("Failed to toggle counting:", error)
+      console.error("[v0] Failed to toggle counting:", error)
     }
   }
 
