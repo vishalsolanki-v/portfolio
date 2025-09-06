@@ -1,3 +1,4 @@
+import { hashPostId } from "@/lib/utils";
 import { MetadataRoute } from "next";
 type Post = {
   id: any;
@@ -33,11 +34,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
-    ...posts?.map((post) => ({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${encodeURIComponent(post.id)}`,
+    ...posts?.map((post) => {
+      const id = hashPostId(post.link)
+      return({
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${encodeURIComponent(id)}`,
       lastModified: post.updatedAt,
       changeFrequency: "daily" as const,
       priority: 0.8,
-    })),
+    })}),
   ];
 }

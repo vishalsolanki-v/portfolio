@@ -1,3 +1,5 @@
+import { hashPostId } from "./utils"
+
 export type MediumPost = {
   id: string
   title: string
@@ -11,11 +13,11 @@ export type MediumPost = {
 }
 
 // Stable, short ID based on the canonical link (same on server & client)
-export function hashPostId(link: string): string {
-  let h = 5381
-  for (let i = 0; i < link.length; i++) h = (h * 33) ^ link.charCodeAt(i)
-  return (h >>> 0).toString(36)
-}
+// export function hashPostId(link: string): string {
+//   let h = 5381
+//   for (let i = 0; i < link.length; i++) h = (h * 33) ^ link.charCodeAt(i)
+//   return (h >>> 0).toString(36)
+// }
 
 function stripHtml(html: string): string {
   return html

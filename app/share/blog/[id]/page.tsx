@@ -1,13 +1,14 @@
 import type { Metadata } from "next"
 import ClientRedirect from "./client-redirect"
+import { hashPostId } from "@/lib/utils"
 
-function hashPostId(input: string) {
-  let hash = 5381
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 33) ^ input.charCodeAt(i)
-  }
-  return (hash >>> 0).toString(36)
-}
+// function hashPostId(input: string) {
+//   let hash = 5381
+//   for (let i = 0; i < input.length; i++) {
+//     hash = (hash * 33) ^ input.charCodeAt(i)
+//   }
+//   return (hash >>> 0).toString(36)
+// }
 
 type FeedItem = {
   title: string

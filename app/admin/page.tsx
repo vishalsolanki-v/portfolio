@@ -4,7 +4,6 @@ import { getJSON, getNumber } from "@/lib/redis"
 
 export default async function AdminPage({ searchParams }: { searchParams: { key?: string } }) {
   const ok = (searchParams.key || "") === (process.env.ADMIN_SECRET || "")
-  console.log(ok,searchParams,process.env.ADMIN_SECRET)
   if (!ok) {
     return (
       <main className="container mx-auto max-w-md px-4 py-12">
