@@ -16,8 +16,10 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/download.png",
   },
+   verification: {
+    google: "-x-z65WiQHbM2SsvwSdM8l6NLfD5WWmf_j8wGG4t2_g", // paste the code from GSC here
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
