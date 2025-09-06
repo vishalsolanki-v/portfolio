@@ -16,6 +16,21 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/download.png",
   },
+  openGraph: {
+    title: "HeyVishal",
+    description: "Developer portfolio and blogs.",
+    url: "https://heyvishal.vercel.app",
+    siteName: "HeyVishal",
+    images: [
+      {
+        url: "/og-image.png", // add in public/ folder
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
   verification: {
     google: "-x-z65WiQHbM2SsvwSdM8l6NLfD5WWmf_j8wGG4t2_g", // paste the code from GSC here
   },
