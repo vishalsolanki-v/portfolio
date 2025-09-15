@@ -131,19 +131,6 @@ const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
 
         <section className="mt-12">
           <h2 className="text-xl font-semibold mb-4">Readers Also Enjoyed</h2>
-          {/* <div className="mt-4 grid gap-4 sm:grid-cols-2">
-      {others.map((p: MediumPost) => (
-        <Link key={p.id} href={`/blog/${p.id}`} className="rounded-lg border p-4 hover:bg-accent">
-          <h3 className="font-medium">{p.title}</h3>
-          <p
-            className="mt-2 line-clamp-2 text-sm text-muted-foreground"
-            dangerouslySetInnerHTML={{ __html: p.description || "" }}
-          />
-        </Link>
-      ))}
-
-
-    </div> */}
           {others?.length ? (
             <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {others.map((post) => {
@@ -173,19 +160,19 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
       })
     : null
 
-  // const [copied, setCopied] = useState(false)
+
 
   async function onShare() {
     try {
-      const url = `${window.location.origin}/share/blog/${encodeURIComponent(postId)}`
+      const url = `${window.location.origin}/blog/${encodeURIComponent(postId)}`
       const canNativeShare =
         typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
       if (canNativeShare) {
         await (navigator as any).share({ title: post.title, url })
       } else {
         await navigator.clipboard.writeText(url)
-        // setCopied(true)
-        // setTimeout(() => setCopied(false), 2000)
+
+
       }
     } catch (e) {
       console.error("Share failed:", (e as Error).message)
@@ -243,24 +230,6 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
           >
             Read on site
           </Link>
-
-          {/* <button
-            type="button"
-            onClick={onShare}
-            className={cn(
-              "inline-flex items-center gap-2 rounded-md border border-slate-300 px-3 py-1.5 text-sm transition-colors relative",
-              "hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800",
-            )}
-            aria-label={`Share '${post.title}' link`}
-          >
-            <Share2 className="h-4 w-4" aria-hidden="true" />
-          <span
-            className={cn("text-xs text-slate-500 transition-opacity absolute top-[-10px] left-0 right-0", copied ? "opacity-100" : "opacity-0")}
-            aria-live="polite"
-          >
-            Copied!
-          </span>
-          </button> */}
 
         </div>
       </div>
