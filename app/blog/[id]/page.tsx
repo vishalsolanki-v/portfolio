@@ -8,6 +8,7 @@ import Image from "next/image"
 import './blog.css'
 import { normalizeTitle, sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
 import { Navbar } from "@/components/navbar"
+import { hashPostId } from "@/lib/utils"
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -40,10 +41,8 @@ export async function generateMetadata({ params }: Props) {
 export default async function BlogDetailPage({ params }: Props) {
   const { id } = params
   const { post, posts } = await getPostById(id)
-  console.log(post?.contentHTML,'post?.contentHTMLpost?.contentHTMLpost?.contentHTML')
    const title = normalizeTitle(post?.title || 'Blog');
 const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
-  console.log(post,'postpost')
   if (!post) {
     return (
       <main className="container mx-auto max-w-3xl px-4 py-12">
@@ -54,13 +53,13 @@ const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
       </main>
     )
   }
-function hashPostId(input: string) {
-  let hash = 5381
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 33) ^ input.charCodeAt(i)
-  }
-  return (hash >>> 0).toString(36)
-}
+// function hashPostId(input: string) {
+//   let hash = 5381
+//   for (let i = 0; i < input.length; i++) {
+//     hash = (hash * 33) ^ input.charCodeAt(i)
+//   }
+//   return (hash >>> 0).toString(36)
+// }
   const [shares, views, claps] = await Promise.all([
     getNumber(`blog:share:${id}`),
     getNumber(`blog:view:${id}`),

@@ -4,7 +4,7 @@ import useSWR from "swr"
 import Image from "next/image"
 import Link from "next/link"
 import { CalendarDays, ExternalLink, ArrowUpRight, Share2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, hashPostId } from "@/lib/utils"
 import { useEffect, useRef, useState } from "react"
 
 type Post = {
@@ -18,13 +18,13 @@ type Post = {
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
-function hashPostId(input: string) {
-  let hash = 5381
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 33) ^ input.charCodeAt(i)
-  }
-  return (hash >>> 0).toString(36)
-}
+// function hashPostId(input: string) {
+//   let hash = 5381
+//   for (let i = 0; i < input.length; i++) {
+//     hash = (hash * 33) ^ input.charCodeAt(i)
+//   }
+//   return (hash >>> 0).toString(36)
+// }
 
 export function BlogSection() {
   const { data, error, isLoading } = useSWR<{ posts: Post[] }>("/api/medium", fetcher, {

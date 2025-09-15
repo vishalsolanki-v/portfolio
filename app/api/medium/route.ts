@@ -17,7 +17,6 @@ export async function GET() {
 
     const xml = await res.text()
     const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1])
-
     const posts = items.slice(0, 6).map((item) => {
       const get = (tag: string) => {
         const r = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`)

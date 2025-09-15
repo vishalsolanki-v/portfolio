@@ -5,7 +5,6 @@ import AdminClient from "./admin-client"
 export default async function AdminPage({ searchParams }: { searchParams: { key?: string } }) {
   const adminKey = searchParams.key || ""
   const ok = adminKey === (process.env.ADMIN_SECRET || "")
-
   if (!ok) {
     return (
       <main className="container mx-auto max-w-md px-4 py-12">
