@@ -35,7 +35,6 @@ export const metadata: Metadata = {
     google: "-x-z65WiQHbM2SsvwSdM8l6NLfD5WWmf_j8wGG4t2_g", // paste the code from GSC here
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

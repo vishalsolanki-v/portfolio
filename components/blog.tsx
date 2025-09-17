@@ -127,7 +127,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
 
   async function onShare() {
     try {
-      const url = `${window.location.origin}/share/blog/${encodeURIComponent(postId)}`
+      const url = `${window.location.origin}/blog/${encodeURIComponent(postId)}`
       const canNativeShare =
         typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
       if (canNativeShare) {
@@ -138,7 +138,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
         setTimeout(() => setCopied(false), 2000)
       }
     } catch (e) {
-      console.error(" Share failed:", (e as Error).message)
+      console.error("Share failed:", (e as Error).message)
     }
   }
 

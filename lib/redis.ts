@@ -22,3 +22,15 @@ export async function getJSON<T>(key: string, fallback: T): Promise<T> {
 export async function setJSON<T>(key: string, value: T) {
   return redis.set(key, value)
 }
+
+export async function get(key: string) {
+  return redis.get<string>(key)
+}
+
+export async function set(key: string, value: string) {
+  return redis.set(key, value)
+}
+
+export async function del(key: string) {
+  return redis.del(key)
+}

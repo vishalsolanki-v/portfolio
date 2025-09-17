@@ -1,22 +1,16 @@
-// lib/medium-normalize.ts
 import 'server-only';
 import createDOMPurify from 'isomorphic-dompurify';
 import { JSDOM } from 'jsdom';
 
 export function unwrapCdata(s = '') {
-  // If the *entire* string is one CDATA block, unwrap it
   const m = s.match(/^<!\[CDATA\[(.*)\]\]>$/s);
   if (m) return m[1];
-  // Otherwise strip stray markers
   return s.replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '');
 }
 
-// Only decode when the *whole* string is HTML-escaped (not just code blocks)
 import { decode } from 'html-entities';
 export function decodeIfFullyEscaped(s = '') {
-  // If there are any real '<' tags, do NOT decode
   if (s.includes('<')) return s;
-  // If it looks escaped at top-level, decode once
   if (/^(&lt;|&amp;|&quot;|&#)/i.test(s)) return decode(s);
   return s;
 }
@@ -33,11 +27,8 @@ const ALLOWED_IFRAME_HOSTS = new Set([
 ]);
 
 export function sanitizeAndNormalizeMediumHtml(rawHtml: string) {
-  // 1) unwrap CDATA (and decode only if the whole thing is escaped)
   let html = unwrapCdata(rawHtml);
   html = decodeIfFullyEscaped(html);
-
-  // 2) sanitize with JSDOM + DOMPurify (SSR-safe)
   const window = new JSDOM('').window as unknown as Window;
   const DOMPurify = createDOMPurify(window as any);
 
@@ -54,11 +45,9 @@ export function sanitizeAndNormalizeMediumHtml(rawHtml: string) {
     KEEP_CONTENT: false,
   });
 
-  // 3) post-process DOM: allowlist iframes, wrap responsive, normalize images, drop trackers
   const dom = new JSDOM(`<body>${clean}</body>`);
   const doc = dom.window.document;
 
-  // a) kill Medium tracking pixel(s)
   doc.querySelectorAll('img').forEach(img => {
     const src = img.getAttribute('src') || '';
     const w = (img.getAttribute('width') || '').trim();
@@ -69,7 +58,6 @@ export function sanitizeAndNormalizeMediumHtml(rawHtml: string) {
     }
   });
 
-  // b) images: lazy + figure wrap
   doc.querySelectorAll('img').forEach(img => {
     img.setAttribute('loading','lazy');
     img.setAttribute('decoding','async');
@@ -82,7 +70,6 @@ export function sanitizeAndNormalizeMediumHtml(rawHtml: string) {
     }
   });
 
-  // c) iframes: allowlist + responsive wrapper
   doc.querySelectorAll('iframe').forEach(iframe => {
     try {
       const src = iframe.getAttribute('src') || '';
@@ -103,7 +90,6 @@ export function sanitizeAndNormalizeMediumHtml(rawHtml: string) {
     } catch { iframe.remove(); }
   });
 
-  // d) remove empty paragraphs
   doc.querySelectorAll('p').forEach(p => { if (!p.textContent?.trim()) p.remove(); });
 
   return doc.body.innerHTML;
