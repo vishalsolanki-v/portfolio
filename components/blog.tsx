@@ -4,7 +4,7 @@ import useSWR from "swr"
 import Image from "next/image"
 import Link from "next/link"
 import { CalendarDays, ExternalLink, ArrowUpRight, Share2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, hashPostId } from "@/lib/utils"
 import { useEffect, useRef, useState } from "react"
 
 type Post = {
@@ -18,13 +18,13 @@ type Post = {
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
-function hashPostId(input: string) {
-  let hash = 5381
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 33) ^ input.charCodeAt(i)
-  }
-  return (hash >>> 0).toString(36)
-}
+// function hashPostId(input: string) {
+//   let hash = 5381
+//   for (let i = 0; i < input.length; i++) {
+//     hash = (hash * 33) ^ input.charCodeAt(i)
+//   }
+//   return (hash >>> 0).toString(36)
+// }
 
 export function BlogSection() {
   const { data, error, isLoading } = useSWR<{ posts: Post[] }>("/api/medium", fetcher, {
@@ -127,7 +127,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
 
   async function onShare() {
     try {
-      const url = `${window.location.origin}/share/blog/${encodeURIComponent(postId)}`
+      const url = `${window.location.origin}/blog/${encodeURIComponent(postId)}`
       const canNativeShare =
         typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
       if (canNativeShare) {
@@ -138,7 +138,7 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
         setTimeout(() => setCopied(false), 2000)
       }
     } catch (e) {
-      console.error("[v0] Share failed:", (e as Error).message)
+      console.error("Share failed:", (e as Error).message)
     }
   }
 

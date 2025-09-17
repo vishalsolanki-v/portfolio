@@ -16,7 +16,10 @@ const links = [
   { href: "#contact", label: "Contact" },
 ]
 
-export function Navbar() {
+type NavbarProps = {
+  showOtherLinks: boolean;
+};
+export function Navbar({showOtherLinks}:NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -49,11 +52,11 @@ const onSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => 
       role="banner"
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <a href="#" className="font-semibold tracking-tight text-indigo-600 dark:text-indigo-400" aria-label="Home">
+        <a href="/" className="font-semibold tracking-tight text-indigo-600 dark:text-indigo-400" aria-label="Home">
           Vishal Solanki
         </a>
         <div className="hidden items-center gap-4 md:flex">
-          {links.map((l) => (
+          {showOtherLinks && links.map((l) => (
             <a
               key={l.href}
               href={l.href}

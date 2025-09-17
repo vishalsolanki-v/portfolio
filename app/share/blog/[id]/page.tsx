@@ -1,13 +1,14 @@
 import type { Metadata } from "next"
 import ClientRedirect from "./client-redirect"
+import { hashPostId } from "@/lib/utils"
 
-function hashPostId(input: string) {
-  let hash = 5381
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 33) ^ input.charCodeAt(i)
-  }
-  return (hash >>> 0).toString(36)
-}
+// function hashPostId(input: string) {
+//   let hash = 5381
+//   for (let i = 0; i < input.length; i++) {
+//     hash = (hash * 33) ^ input.charCodeAt(i)
+//   }
+//   return (hash >>> 0).toString(36)
+// }
 
 type FeedItem = {
   title: string
@@ -67,13 +68,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const id = params.id
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
-  const shareUrl = `${siteUrl}/share/blog/${encodeURIComponent(id)}`
+  const shareUrl = `${siteUrl}/blog/${encodeURIComponent(id)}`
   const targetUrl = `${siteUrl}/?post=${encodeURIComponent(id)}#blog`
 
   const items = await getMediumFeed()
   const post = items.find((p) => hashPostId(p.link) === id)
 
-  // fire-and-forget metric
   incrementShare(id)
 
   const title = post?.title || "Blog post"

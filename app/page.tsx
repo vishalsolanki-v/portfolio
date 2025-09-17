@@ -15,7 +15,6 @@ import { BlogSection } from "@/components/blog"
 
 export default function Page() {
   useEffect(() => {
-    // Optional: reduce motion if user prefers reduced motion
     if (typeof window !== "undefined") {
       document.body.classList.toggle("motion-safe", !window.matchMedia("(prefers-reduced-motion: reduce)").matches)
     }
@@ -32,7 +31,6 @@ export default function Page() {
       const el = document.getElementById(targetId)
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" })
-        // remove only the ?post param; keep hash if present
         url.searchParams.delete("post")
         const newUrl = url.pathname + (url.search ? `?${url.searchParams.toString()}` : "") + (url.hash || "")
         window.history.replaceState({}, "", newUrl)
@@ -45,7 +43,7 @@ export default function Page() {
   }, [])
   return (
     <main className="min-h-dvh bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <Navbar />
+      <Navbar showOtherLinks={true}/>
       <Hero />
       <About />
       <Skills />
