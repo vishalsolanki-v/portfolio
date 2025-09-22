@@ -1,7 +1,9 @@
+import clientPromise from "./mongodb"
 import { hashPostId } from "./utils"
 
 export type MediumPost = {
-  id: string
+  id?:string
+  _id: string
   title: string
   link: string
   description: string
@@ -107,7 +109,11 @@ export async function getPostById(
   post?: MediumPost
   posts: MediumPost[]
 }> {
-  const posts = await fetchMediumFeed(username)
-  const post = posts.find((p) => p.id === id)
+  // const posts = await fetchMediumFeed(username)
+     const client = await clientPromise
+    const db = client.db("vishaldevflow")
+    const collection = db.collection("portfolio-medium-blogs");
+    const posts = collection.find({ })
+  const post = collection.findOne({ _id: id });
   return { post, posts }
 }
