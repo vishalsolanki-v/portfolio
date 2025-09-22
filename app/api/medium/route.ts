@@ -1,3 +1,5 @@
+import clientPromise from "@/lib/mongodb"
+import { hashPostId } from "@/lib/utils"
 import { NextResponse } from "next/server"
 
 export async function GET() {
@@ -44,7 +46,30 @@ export async function GET() {
         excerpt: stripHTML(content).slice(0, 200),
       }
     })
-
+    const client = await clientPromise
+    const db = client.db("vishaldevflow")
+    const collection = db.collection("portfolio-medium-blogs")
+    const bulkOps = posts.map((p) => ({
+      updateOne: {
+        filter: { _id: hashPostId(p.link) }, // unique identity
+        update: {
+          $set: {
+            title: p.title,
+            link: p.link, // store for convenience
+            image: p.image,
+            publishedAt: p.publishedAt ? new Date(p.publishedAt) : undefined,
+            author: p.author,
+            excerpt: p.excerpt,
+          },
+          $setOnInsert: {
+          },
+        },
+        upsert: true,
+      },
+    }));
+    if (bulkOps.length > 0) {
+      await collection.bulkWrite(bulkOps)
+    }
     return NextResponse.json({ posts }, { status: 200 })
   } catch {
     return NextResponse.json({ error: "Unexpected error fetching Medium feed" }, { status: 500 })
