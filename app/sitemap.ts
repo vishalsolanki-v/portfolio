@@ -1,46 +1,15 @@
-import { hashPostId } from "@/lib/utils";
-import { MetadataRoute } from "next";
-type Post = {
-  id: any;
-  updatedAt: any;
-  title: string
-  link: string
-  image?: string
-  publishedAt?: string | null
-  author?: string
-  excerpt?: string
-}
-async function getPosts(): Promise<Post[]> {
-  try {
-    const res = await fetch("https://heyvishal.vercel.app/api/medium", {
-      next: { revalidate: 60 }, // refresh every 60s
-    });
+import { listBlogs } from "@/lib/blog-db"
 
-    if (!res.ok) throw new Error("Failed to fetch Medium posts");
-    const data = await res.json();
-
-    return data.posts || [];
-  } catch (error) {
-    console.error("Sitemap fetch error:", error);
-    return [];
-  }
-}
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const posts = await getPosts();
-  return [
-    {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    ...posts?.map((post) => {
-      const id = hashPostId(post.link)
-      return({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${encodeURIComponent(id)}`,
-      lastModified: post.updatedAt,
-      changeFrequency: "daily" as const,
-      priority: 0.8,
-    })}),
-  ];
+export default async function sitemap() {
+  const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
+  const staticRoutes = ["", "/#about", "/#projects", "/#blog"].map((p) => ({
+    url: `${site}${p}`,
+    lastModified: new Date(),
+  }))
+  const blogs = await listBlogs().catch(() => [])
+  const blogRoutes = blogs.map((b) => ({
+    url: `${site}/blog/${b.id}`,
+    lastModified: b.updated_at ? new Date(b.updated_at) : new Date(),
+  }))
+  return [...staticRoutes, ...blogRoutes]
 }

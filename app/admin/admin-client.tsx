@@ -15,6 +15,7 @@ import {
   Download,
   RefreshCw,
 } from "lucide-react"
+import BlogManagement from "./blog-management"
 
 interface PostStats {
   id: string
@@ -337,6 +338,9 @@ export default function AdminClient({ initialStats, initialCountingDisabled, adm
             </table>
           </div>
         </motion.div>
+
+        {/* Blog Management */}
+        <BlogManagement adminKey={adminKey} />
       </motion.div>
     </main>
   )

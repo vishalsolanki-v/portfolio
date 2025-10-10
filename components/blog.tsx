@@ -27,7 +27,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json())
 // }
 
 export function BlogSection() {
-  const { data, error, isLoading } = useSWR<{ posts: Post[] }>("/api/medium", fetcher, {
+  const { data, error, isLoading } = useSWR<{ posts: Post[] }>("/api/blogs", fetcher, {
     revalidateOnFocus: false,
   })
 

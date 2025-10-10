@@ -1,16 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server"
 
 export function GET() {
-  return new NextResponse(
-    `User-agent: *
+  const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
+  const body = `User-agent: *
 Allow: /
 
-Sitemap: https://heyvishal.vercel.app/sitemap.xml
-`,
-    {
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    }
-  );
+Sitemap: ${site}/sitemap.xml
+`
+  return new NextResponse(body, { headers: { "Content-Type": "text/plain" } })
 }
