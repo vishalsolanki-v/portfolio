@@ -66,11 +66,11 @@ const onSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => 
               {l.label}
             </a>
           ))}
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </div>
-        <div className="md:hidden">
+        {/* <div className="md:hidden">
           <ThemeToggle />
-        </div>
+        </div> */}
       </nav>
     </header>
   )
