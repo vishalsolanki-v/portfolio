@@ -3,14 +3,83 @@
 import { motion } from "framer-motion"
 
 const groups = [
-  { title: "Programming", items: ["JavaScript", "TypeScript"] },
-  { title: "Frameworks", items: ["React.js", "Next.js"] },
-  { title: "State Management", items: ["Redux", "Redux Toolkit", "RTK Query", "Context API"] },
-  { title: "Styling", items: ["Tailwind", "Bootstrap", "CSS3"] },
-  { title: "APIs", items: ["REST", "GraphQL"] },
-  { title: "Tools", items: ["Git", "Bitbucket", "Jest"] },
-  { title: "Others", items: ["WebSockets", "Agile"] },
+  { 
+    title: "Programming", 
+    items: [
+      { name: "JavaScript", level: 9 },
+      { name: "TypeScript", level: 8 }
+    ] 
+  },
+
+  { 
+    title: "Frameworks", 
+    items: [
+      { name: "React.js", level: 9 },
+      { name: "Next.js", level: 9 },
+      { name: "Node.js", level: 8 }
+    ] 
+  },
+
+  { 
+    title: "State Management", 
+    items: [
+      { name: "Redux", level: 9 },
+      { name: "Redux Toolkit", level: 9 },
+      { name: "RTK Query", level: 8 },
+      { name: "Context API", level: 9 }
+    ] 
+  },
+
+  { 
+    title: "Styling", 
+    items: [
+      { name: "Tailwind CSS", level: 9 },
+      { name: "ShadCN/UI", level: 8 },
+      { name: "Bootstrap", level: 7 },
+      { name: "CSS3", level: 8 }
+    ] 
+  },
+
+  { 
+    title: "APIs", 
+    items: [
+      { name: "REST APIs", level: 9 },
+      { name: "Server Actions (Next.js)", level: 8 },
+      { name: "GraphQL", level: 7 }
+    ] 
+  },
+
+  { 
+    title: "Tools", 
+    items: [
+      { name: "Git", level: 9 },
+      { name: "Bitbucket", level: 8 },
+      { name: "Postman", level: 9 },
+      { name: "Jest", level: 6 }
+    ] 
+  },
+
+  { 
+    title: "Cloud & DevOps", 
+    items: [
+      { name: "Vercel", level: 9 },
+      { name: "AWS Amplify", level: 7 },
+      { name: "AWS Lambda", level: 6 },
+      { name: "CI/CD Pipelines", level: 7 }
+    ] 
+  },
+
+  { 
+    title: "Others", 
+    items: [
+      { name: "WebSockets", level: 7 },
+      { name: "Agile", level: 8 },
+      { name: "Performance Optimization", level: 8 },
+      { name: "Data Modeling", level: 7 }
+    ] 
+  }
 ]
+
 
 export function Skills() {
   return (
@@ -40,18 +109,17 @@ export function Skills() {
             <h3 className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{g.title}</h3>
             <ul className="mt-3 space-y-2">
               {g.items.map((item, idx) => {
-                const level = Math.min(10, 8 + (idx % 5));
-                const progress = (level / 10) * 100;
+                const progress = (item.level / 10) * 100;
 
                 return (
                   <li
-                    key={`${item}-${idx}`}
+                    key={`${item.name}-${idx}`}
                     className="text-sm text-slate-700 dark:text-slate-300"
                   >
                     <div className="flex items-center justify-between">
-                      <span>{item}</span>
+                      <span>{item.name}</span>
                       <span className="text-xs text-slate-500 dark:text-slate-400">
-                        Lvl {level}/10
+                        Lvl {item.level}/10
                       </span>
                     </div>
                     <div className="mt-1 h-1.5 rounded-full bg-slate-200 dark:bg-slate-800">
@@ -65,7 +133,7 @@ export function Skills() {
                         aria-valuenow={progress}
                         aria-valuemin={0}
                         aria-valuemax={100}
-                        aria-label={`Profile Skills ${item}`}
+                        aria-label={`Profile Skills ${item.name}`}
                       />
                     </div>
                   </li>

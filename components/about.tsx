@@ -24,9 +24,7 @@ export function About() {
           transition={{ delay: 0.05 }}
         >
           <p className="text-slate-700 dark:text-slate-300">
-            Results-driven Frontend Developer with 3+ years of experience specializing in React.js, Next.js, and
-            TypeScript. Skilled in performance optimization, reusable UI components, and creating seamless user
-            experiences.
+           Full Stack Engineer with 3+ years of experience, specializing in building scalable UI systems, backend services, and full-stack applications using React.js, Next.js, Node.js, Express, TypeScript, and MongoDB.
           </p>
         </motion.div>
 
@@ -59,10 +57,10 @@ export function About() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
         >
           {[
-            "React, Next.js, TypeScript",
+            "React, Next.js, TypeScript, Node.js, MongoDB",
             "Performance optimization & Core Web Vitals",
             "Reusable, accessible UI components",
-            "State management: Redux Toolkit, RTK Query, Context",
+            "State management: Redux Toolkit, RTK Query, Context, AWS",
           ].map((t) => (
             <motion.li
               key={t}
