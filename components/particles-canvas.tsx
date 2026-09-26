@@ -10,6 +10,8 @@ export function ParticlesCanvas() {
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
+    const targetCanvas = canvas
+    const context = ctx
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
     let raf = 0
@@ -22,16 +24,15 @@ export function ParticlesCanvas() {
     }))
 
     function resize() {
-      canvas.width = Math.floor(canvas.clientWidth * dpr)
-      canvas.height = Math.floor(canvas.clientHeight * dpr)
+      targetCanvas.width = Math.floor(targetCanvas.clientWidth * dpr)
+      targetCanvas.height = Math.floor(targetCanvas.clientHeight * dpr)
     }
 
     function step() {
-      if (!ctx) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.globalAlpha = 0.9
-      const w = canvas.width
-      const h = canvas.height
+      context.clearRect(0, 0, targetCanvas.width, targetCanvas.height)
+      context.globalAlpha = 0.9
+      const w = targetCanvas.width
+      const h = targetCanvas.height
       for (const p of particles) {
         p.x += p.vx
         p.y += p.vy
@@ -40,10 +41,10 @@ export function ParticlesCanvas() {
 
         const px = p.x * w
         const py = p.y * h
-        ctx.beginPath()
-        ctx.fillStyle = "#6366f1" // indigo-500
-        ctx.arc(px, py, p.r * dpr * 2, 0, Math.PI * 2)
-        ctx.fill()
+        context.beginPath()
+        context.fillStyle = "#6366f1" // indigo-500
+        context.arc(px, py, p.r * dpr * 2, 0, Math.PI * 2)
+        context.fill()
       }
       raf = requestAnimationFrame(step)
     }

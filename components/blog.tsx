@@ -105,10 +105,8 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
   async function onShare() {
     try {
       const url = `${window.location.origin}/blog/${encodeURIComponent(postId)}`
-      const canNativeShare =
-        typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
-      if (canNativeShare) {
-        await (navigator as any).share({ title: post.title, url })
+      if (typeof navigator !== "undefined" && navigator.share) {
+        await navigator.share({ title: post.title, url })
       } else {
         await navigator.clipboard.writeText(url)
         setCopied(true)

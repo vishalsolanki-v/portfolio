@@ -1,28 +1,43 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useState, useSyncExternalStore } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Heart } from "lucide-react"
 
+const CLAP_CHANGE_EVENT = "portfolio:claps-change"
+
+function getStoredClaps(postId: string) {
+  const count = Number(localStorage.getItem(`claps:${postId}`) || 0)
+  return Number.isFinite(count) ? count : 0
+}
+
 export default function ClapButton({ postId, initialCount = 0 }: { postId: string; initialCount?: number }) {
   const [count, setCount] = useState<number>(initialCount)
-  const [mine, setMine] = useState<number>(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [particles, setParticles] = useState<{ id: number; x: number; y: number }[]>([])
   const limit = 50
 
-  useEffect(() => {
-    const v = Number(localStorage.getItem(`claps:${postId}`) || 0)
-    setMine(Number.isFinite(v) ? v : 0)
+  const subscribeToClaps = useCallback((onChange: () => void) => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === `claps:${postId}`) onChange()
+    }
+    window.addEventListener("storage", onStorage)
+    window.addEventListener(CLAP_CHANGE_EVENT, onChange)
+    return () => {
+      window.removeEventListener("storage", onStorage)
+      window.removeEventListener(CLAP_CHANGE_EVENT, onChange)
+    }
   }, [postId])
+  const getSnapshot = useCallback(() => getStoredClaps(postId), [postId])
+  const mine = useSyncExternalStore(subscribeToClaps, getSnapshot, () => 0)
 
   async function clap() {
     if (mine >= limit || isAnimating) return
 
     setIsAnimating(true)
     const nextMine = Math.min(mine + 1, limit)
-    setMine(nextMine)
     localStorage.setItem(`claps:${postId}`, String(nextMine))
+    window.dispatchEvent(new Event(CLAP_CHANGE_EVENT))
     setCount((c) => c + 1)
 
     // Create particle burst

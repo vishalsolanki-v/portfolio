@@ -43,7 +43,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { key?
         getNumber(`blog:share:${p.id}`),
         getNumber(`blog:view:${p.id}`),
         getNumber(`blog:claps:${p.id}`),
-        getJSON<any[]>(`blog:comments:${p.id}`, []),
+        getJSON<unknown[]>(`blog:comments:${p.id}`, []),
       ])
       return { id: p.id, title: p.title, share, view, claps, commentsCount: comments.length }
     }),

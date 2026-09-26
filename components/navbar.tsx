@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import { ThemeToggle } from "./theme-toggle"
+import Link from "next/link"
 
 const links = [
   { href: "#about", label: "About" },
@@ -52,9 +52,9 @@ const onSmoothClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => 
       role="banner"
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <a href="/" className="font-semibold tracking-tight text-indigo-600 dark:text-indigo-400" aria-label="Home">
+        <Link href="/" className="font-semibold tracking-tight text-indigo-600 dark:text-indigo-400" aria-label="Home">
           Vishal Solanki
-        </a>
+        </Link>
         <div className="hidden items-center gap-4 md:flex">
           {showOtherLinks && links.map((l) => (
             <a

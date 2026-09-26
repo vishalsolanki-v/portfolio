@@ -14,9 +14,9 @@ type Props = { params: { id: string } }
 type Post = {
   title: string
   link: string
-  image?: string
+  image?: string | null
   publishedAt?: string | null
-  author?: string
+  author?: string | null
   excerpt?: string
 }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -102,7 +102,6 @@ const safeHtml = sanitizeAndNormalizeMediumHtml(post?.contentHTML || "");
             }} />
 
           <section className=" ">
-            {/* eslint-disable-next-line react/no-danger */}
             <div dangerouslySetInnerHTML={{ __html: safeHtml || "" }} />
           </section>
 
@@ -167,23 +166,6 @@ function ArticleCard({ post, postId }: { post: Post; postId: string }) {
     : null
 
 
-
-  async function onShare() {
-    try {
-      const url = `${window.location.origin}/blog/${encodeURIComponent(postId)}`
-      const canNativeShare =
-        typeof navigator !== "undefined" && "share" in navigator && (navigator as any).canShare?.({ url })
-      if (canNativeShare) {
-        await (navigator as any).share({ title: post.title, url })
-      } else {
-        await navigator.clipboard.writeText(url)
-
-
-      }
-    } catch (e) {
-      console.error("Share failed:", (e as Error).message)
-    }
-  }
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">

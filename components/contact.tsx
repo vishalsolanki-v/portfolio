@@ -38,10 +38,10 @@ export function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        Let's Build Something
+        Let&apos;s Build Something
       </motion.h2>
       <p className="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-        I'm open to Software Engineering and Full Stack opportunities where I can work on meaningful products, solve challenging engineering problems, and continue growing across frontend and backend development.
+        I&apos;m open to Software Engineering and Full Stack opportunities where I can work on meaningful products, solve challenging engineering problems, and continue growing across frontend and backend development.
       </p>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">

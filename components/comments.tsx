@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useState, useSyncExternalStore } from "react"
 import useSWR, { mutate } from "swr"
 import { MessageSquarePlus, Reply } from "lucide-react"
 
@@ -14,6 +14,11 @@ type CommentNode = {
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
+const COMMENTER_EMAIL_CHANGE_EVENT = "portfolio:commenter-email-change"
+
+function getSavedEmail() {
+  return localStorage.getItem("commenter:email") || ""
+}
 
 export default function CommentsSection({ postId }: { postId: string }) {
   const { data } = useSWR<{ comments: CommentNode[] }>(`/api/blog/comments?id=${postId}`, fetcher, {
@@ -21,19 +26,25 @@ export default function CommentsSection({ postId }: { postId: string }) {
   })
   const comments = data?.comments || []
   const [modalOpen, setModalOpen] = useState(false)
-  const [email, setEmail] = useState<string>("")
+  const [editedEmail, setEditedEmail] = useState<string | null>(null)
+  const subscribeToSavedEmail = useCallback((onChange: () => void) => {
+    window.addEventListener("storage", onChange)
+    window.addEventListener(COMMENTER_EMAIL_CHANGE_EVENT, onChange)
+    return () => {
+      window.removeEventListener("storage", onChange)
+      window.removeEventListener(COMMENTER_EMAIL_CHANGE_EVENT, onChange)
+    }
+  }, [])
+  const savedEmail = useSyncExternalStore(subscribeToSavedEmail, getSavedEmail, () => "")
+  const email = editedEmail ?? savedEmail
   const [content, setContent] = useState<string>("")
   const [parentId, setParentId] = useState<string | undefined>(undefined)
-
-  useEffect(() => {
-    const saved = localStorage.getItem("commenter:email")
-    if (saved) setEmail(saved)
-  }, [])
 
   async function submit() {
     if (!email || !content) return
     try {
       localStorage.setItem("commenter:email", email)
+      window.dispatchEvent(new Event(COMMENTER_EMAIL_CHANGE_EVENT))
       await fetch("/api/blog/comments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,7 +79,7 @@ export default function CommentsSection({ postId }: { postId: string }) {
 
       <div className="mt-6 space-y-4">
         {comments.map((c) => (
-          <CommentItem key={c.id} node={c} onReply={openReply} depth={0} />
+          <CommentItem key={c.id} node={c} onReply={openReply} />
         ))}
       </div>
 
@@ -82,7 +93,7 @@ export default function CommentsSection({ postId }: { postId: string }) {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEditedEmail(e.target.value)}
                   className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm"
                   placeholder="you@example.com"
                 />

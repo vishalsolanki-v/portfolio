@@ -3,7 +3,7 @@ import createDOMPurify from 'isomorphic-dompurify';
 import { JSDOM } from 'jsdom';
 
 export function unwrapCdata(s = '') {
-  const m = s.match(/^<!\[CDATA\[(.*)\]\]>$/s);
+  const m = s.match(/^<!\[CDATA\[([\s\S]*)\]\]>$/);
   if (m) return m[1];
   return s.replace(/<!\[CDATA\[/g, '').replace(/\]\]>/g, '');
 }
@@ -29,8 +29,8 @@ const ALLOWED_IFRAME_HOSTS = new Set([
 export function sanitizeAndNormalizeMediumHtml(rawHtml: string) {
   let html = unwrapCdata(rawHtml);
   html = decodeIfFullyEscaped(html);
-  const window = new JSDOM('').window as unknown as Window;
-  const DOMPurify = createDOMPurify(window as any);
+  const window = new JSDOM('').window as unknown as Parameters<typeof createDOMPurify>[0];
+  const DOMPurify = createDOMPurify(window);
 
   const clean = DOMPurify.sanitize(html, {
     USE_PROFILES: { html: true },
