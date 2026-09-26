@@ -27,7 +27,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json())
 // }
 
 export function BlogSection() {
-  const { data, error, isLoading } = useSWR<{ posts: Post[] }>("/api/medium", fetcher, {
+  const { data } = useSWR<{ posts: Post[] }>("/api/medium", fetcher, {
     revalidateOnFocus: false,
   })
 
@@ -48,8 +48,10 @@ export function BlogSection() {
     }
   }, [data])
 
+  if (!data?.posts?.length) return null
+
   return (
-    <section id="blog" className="py-16 md:py-24 scroll-mt-28 md:scroll-mt-32" aria-busy={isLoading ? "true" : "false"}>
+    <section id="blog" className="py-16 md:py-24 scroll-mt-28 md:scroll-mt-32">
       <div className="mx-auto max-w-6xl px-4">
         <header className="mb-8 md:mb-12">
           <h2 className="text-pretty text-3xl font-semibold tracking-tight md:text-4xl">Latest from Medium</h2>
@@ -58,27 +60,7 @@ export function BlogSection() {
           </p>
         </header>
 
-        {isLoading && (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3" role="status" aria-live="polite">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-64 animate-pulse rounded-lg border border-slate-200 bg-slate-100/40 dark:border-slate-800 dark:bg-slate-900/40"
-              />
-            ))}
-          </div>
-        )}
-
-        {error && (
-          <div className="rounded-lg border border-slate-200 p-6 dark:border-slate-800">
-            <p className="text-sm text-red-600 dark:text-red-400">
-              Unable to load Medium posts right now. Please try again later.
-            </p>
-          </div>
-        )}
-
-        {data?.posts?.length ? (
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {data.posts.map((post) => {
               const id = hashPostId(post.link)
               return (
@@ -88,11 +70,6 @@ export function BlogSection() {
               )
             })}
           </ul>
-        ) : !isLoading && !error ? (
-          <div className="rounded-lg border border-slate-200 p-6 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-400">
-            No posts found yet. Check back soon!
-          </div>
-        ) : null}
 
         <div className="mt-10 flex">
           <Link

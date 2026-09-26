@@ -1,46 +1,50 @@
-import { hashPostId } from "@/lib/utils";
-import { MetadataRoute } from "next";
+import { hashPostId } from "@/lib/utils"
+import type { MetadataRoute } from "next"
+
 type Post = {
-  id: any;
-  updatedAt: any;
-  title: string
   link: string
-  image?: string
+  updatedAt?: string
   publishedAt?: string | null
-  author?: string
-  excerpt?: string
 }
+
 async function getPosts(): Promise<Post[]> {
   try {
-    const res = await fetch("https://heyvishal.vercel.app/api/medium", {
-      next: { revalidate: 60 }, // refresh every 60s
-    });
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://heyvishal.vercel.app"
+    const res = await fetch(`${baseUrl}/api/medium`, {
+      next: { revalidate: 3600 },
+    })
 
-    if (!res.ok) throw new Error("Failed to fetch Medium posts");
-    const data = await res.json();
+    if (!res.ok) throw new Error("Failed to fetch Medium posts")
+    const data = (await res.json()) as { posts?: Post[] }
 
-    return data.posts || [];
+    return data.posts || []
   } catch (error) {
-    console.error("Sitemap fetch error:", error);
-    return [];
+    console.error("Sitemap fetch error:", error)
+    return []
   }
 }
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const posts = await getPosts();
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "https://heyvishal.vercel.app").replace(/\/$/, "")
+  const posts = await getPosts()
+
   return [
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
-    ...posts?.map((post) => {
+    ...posts.map((post) => {
       const id = hashPostId(post.link)
-      return({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${encodeURIComponent(id)}`,
-      lastModified: post.updatedAt,
-      changeFrequency: "daily" as const,
-      priority: 0.8,
-    })}),
-  ];
+      const updatedAt = post.updatedAt || post.publishedAt
+
+      return {
+        url: `${baseUrl}/blog/${encodeURIComponent(id)}`,
+        lastModified: updatedAt ? new Date(updatedAt) : new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      }
+    }),
+  ]
 }

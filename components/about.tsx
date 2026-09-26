@@ -23,9 +23,17 @@ export function About() {
           viewport={{ once: true }}
           transition={{ delay: 0.05 }}
         >
-          <p className="text-slate-700 dark:text-slate-300">
-           Full Stack Engineer with 3+ years of experience, specializing in building scalable UI systems, backend services, and full-stack applications using React.js, Next.js, Node.js, Express, TypeScript, and MongoDB.
-          </p>
+          <div className="space-y-3 text-slate-700 dark:text-slate-300">
+            <p>
+              Software Engineer with 3.5+ years of experience building and optimizing production web applications using React.js, Next.js, TypeScript, Node.js, MySQL, and MongoDB.
+            </p>
+            <p>
+              I work across both frontend and backend, with hands-on experience building secure APIs, server-side workflows, authentication systems, caching solutions, and responsive user interfaces.
+            </p>
+            <p>
+              My experience also includes performance optimization, Core Web Vitals, SEO, accessibility, AWS, Docker, and CI/CD workflows. I enjoy improving existing systems, solving production problems, and turning complex requirements into reliable, maintainable software.
+            </p>
+          </div>
         </motion.div>
 
         <motion.div
@@ -57,10 +65,16 @@ export function About() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
         >
           {[
-            "React, Next.js, TypeScript, Node.js, MongoDB",
-            "Performance optimization & Core Web Vitals",
-            "Reusable, accessible UI components",
-            "State management: Redux Toolkit, RTK Query, Context, AWS",
+            "Full-stack development with React.js, Next.js, TypeScript, and Node.js",
+            "Production APIs with Node.js, Express.js, REST, Server Actions, and authentication",
+            "Performance optimization, Core Web Vitals, caching, and bundle optimization",
+            "Secure server-side workflows and protection of sensitive client-side operations",
+            "Reusable and accessible UI components with Tailwind CSS and ShadCN/UI",
+            "State management with Redux Toolkit, RTK Query, and Context API",
+            "MySQL and MongoDB with practical data modeling experience",
+            "AWS, Docker, Vercel, and CI/CD deployment workflows",
+            "SEO, technical SEO, indexing, GA4, and Google Tag Manager",
+            "AI-assisted development using Claude Code and GitHub Copilot",
           ].map((t) => (
             <motion.li
               key={t}

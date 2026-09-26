@@ -38,8 +38,11 @@ export function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        Contact
+        Let's Build Something
       </motion.h2>
+      <p className="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
+        I'm open to Software Engineering and Full Stack opportunities where I can work on meaningful products, solve challenging engineering problems, and continue growing across frontend and backend development.
+      </p>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <motion.form
@@ -114,8 +117,8 @@ export function Contact() {
           <h3 className="text-sm font-medium text-indigo-600 dark:text-indigo-400">Connect</h3>
           <ul className="mt-3 space-y-3 text-sm">
             <li>
-              <a className="hover:underline" href="mailto:vishalthakur2463@gmail.com" target="_blank" rel="noreferrer">
-                📧 Email: vishalthakur2463@gmail.com
+              <a className="break-all hover:underline" href="mailto:workwithvishalsolanki@gmail.com">
+                📧 Email: workwithvishalsolanki@gmail.com
               </a>
             </li>
             <li className="text-slate-700 dark:text-slate-300">📍 Noida, India</li>

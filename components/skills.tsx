@@ -3,81 +3,109 @@
 import { motion } from "framer-motion"
 
 const groups = [
-  { 
-    title: "Programming", 
+  {
+    title: "Programming",
     items: [
       { name: "JavaScript", level: 9 },
-      { name: "TypeScript", level: 8 }
-    ] 
+      { name: "TypeScript", level: 8 },
+      { name: "HTML5", level: 8 },
+      { name: "CSS3", level: 8 },
+    ],
   },
-
-  { 
-    title: "Frameworks", 
+  {
+    title: "Frameworks",
     items: [
       { name: "React.js", level: 9 },
       { name: "Next.js", level: 9 },
-      { name: "Node.js", level: 8 }
-    ] 
+      { name: "Node.js", level: 8 },
+      { name: "Express.js", level: 7 },
+    ],
   },
-
-  { 
-    title: "State Management", 
+  {
+    title: "State Management",
     items: [
       { name: "Redux", level: 9 },
       { name: "Redux Toolkit", level: 9 },
       { name: "RTK Query", level: 8 },
-      { name: "Context API", level: 9 }
-    ] 
+      { name: "Context API", level: 9 },
+    ],
   },
-
-  { 
-    title: "Styling", 
+  {
+    title: "Styling",
     items: [
       { name: "Tailwind CSS", level: 9 },
       { name: "ShadCN/UI", level: 8 },
       { name: "Bootstrap", level: 7 },
-      { name: "CSS3", level: 8 }
-    ] 
+      { name: "Responsive Design", level: 8 },
+      { name: "Accessibility", level: 8 },
+    ],
   },
-
-  { 
-    title: "APIs", 
+  {
+    title: "Backend & APIs",
     items: [
       { name: "REST APIs", level: 9 },
-      { name: "Server Actions (Next.js)", level: 8 },
-      { name: "GraphQL", level: 7 }
-    ] 
+      { name: "REST API Development", level: 9 },
+      { name: "Next.js Server Actions", level: 8 },
+      { name: "Authentication & Authorization", level: 8 },
+      { name: "JWT", level: 7 },
+      { name: "OAuth", level: 6 },
+      { name: "Zod", level: 7 },
+      { name: "WebSockets", level: 7 },
+      { name: "GraphQL", level: 7 },
+    ],
   },
-
-  { 
-    title: "Tools", 
+  {
+    title: "Databases",
     items: [
-      { name: "Git", level: 9 },
-      { name: "Bitbucket", level: 8 },
-      { name: "Postman", level: 9 },
-      { name: "Jest", level: 6 }
-    ] 
+      { name: "MySQL", level: 7 },
+      { name: "MongoDB", level: 7 },
+      { name: "Data Modeling", level: 7 },
+      { name: "SQL", level: 7 },
+    ],
   },
-
-  { 
-    title: "Cloud & DevOps", 
+  {
+    title: "Cloud & DevOps",
     items: [
-      { name: "Vercel", level: 9 },
+      { name: "AWS", level: 8 },
       { name: "AWS Amplify", level: 7 },
       { name: "AWS Lambda", level: 6 },
-      { name: "CI/CD Pipelines", level: 7 }
-    ] 
+      { name: "Docker", level: 7 },
+      { name: "Vercel", level: 9 },
+      { name: "CI/CD", level: 7 },
+      { name: "GitHub", level: 9 },
+      { name: "Bitbucket", level: 8 },
+    ],
   },
-
-  { 
-    title: "Others", 
+  {
+    title: "Testing & Tools",
     items: [
-      { name: "WebSockets", level: 7 },
-      { name: "Agile", level: 8 },
+      { name: "Git", level: 9 },
+      { name: "Postman", level: 9 },
+      { name: "Jest", level: 6 },
+      { name: "Chrome DevTools", level: 8 },
+    ],
+  },
+  {
+    title: "Engineering",
+    items: [
       { name: "Performance Optimization", level: 8 },
-      { name: "Data Modeling", level: 7 }
-    ] 
-  }
+      { name: "Core Web Vitals", level: 8 },
+      { name: "SEO", level: 7 },
+      { name: "Technical SEO", level: 7 },
+      { name: "Caching", level: 7 },
+      { name: "Web Accessibility", level: 8 },
+      { name: "Agile Development", level: 8 },
+      { name: "Code Review", level: 8 },
+    ],
+  },
+  {
+    title: "AI Tools",
+    items: [
+      { name: "Claude Code", level: 8 },
+      { name: "GitHub Copilot", level: 8 },
+      { name: "Codex", level: 8 },
+    ],
+  },
 ]
 
 
@@ -108,14 +136,11 @@ export function Skills() {
           >
             <h3 className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{g.title}</h3>
             <ul className="mt-3 space-y-2">
-              {g.items.map((item, idx) => {
-                const progress = (item.level / 10) * 100;
+              {g.items.map((item) => {
+                const progress = (item.level / 10) * 100
 
                 return (
-                  <li
-                    key={`${item.name}-${idx}`}
-                    className="text-sm text-slate-700 dark:text-slate-300"
-                  >
+                  <li key={item.name} className="text-sm text-slate-700 dark:text-slate-300">
                     <div className="flex items-center justify-between">
                       <span>{item.name}</span>
                       <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -127,7 +152,7 @@ export function Skills() {
                         className="h-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-orange-200 hover:to-orange-600"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${progress}%` }}
-                        viewport={{ once: true, amount: 0.6 }} // runs once when 60% visible
+                        viewport={{ once: true, amount: 0.6 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         role="progressbar"
                         aria-valuenow={progress}
@@ -137,7 +162,7 @@ export function Skills() {
                       />
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
           </motion.div>

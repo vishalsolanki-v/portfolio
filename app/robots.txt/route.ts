@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 
 export function GET() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://heyvishal.vercel.app";
+
   return new NextResponse(
     `User-agent: *
 Allow: /
 
-Sitemap: https://heyvishal.vercel.app/sitemap.xml
+Sitemap: ${baseUrl.replace(/\/$/, "")}/sitemap.xml
 `,
     {
       headers: {

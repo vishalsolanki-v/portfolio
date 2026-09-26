@@ -1,0 +1,72 @@
+# Vishal Solanki - Software Engineer
+
+> Software Engineer / Full Stack Engineer with 3.5+ years of professional experience building production web applications. Based in Noida, India.
+
+## Professional Profile
+
+Vishal works across frontend and backend development. His primary stack includes React.js, Next.js, TypeScript, JavaScript, Node.js, Express.js, MySQL, MongoDB, AWS, and Docker.
+
+His engineering experience includes full-stack application development, REST APIs, authentication and authorization, secure server-side workflows, performance and bundle optimization, caching, Core Web Vitals, SEO, accessibility, AWS deployments, Docker, CI/CD, GA4, and Google Tag Manager.
+
+## Availability
+
+Open to full-time, contract, and freelance Software Engineering / Full Stack opportunities.
+
+## Current Role
+
+### Software Engineer, Ambak
+
+January 2026 to present. Builds production features for ambak.com using Next.js, React, TypeScript, Node.js, MySQL, AWS, and Docker. Work includes customer onboarding, home-loan discovery, CIBIL workflows, financial-product experiences, secure server-side workflows, caching, performance optimization, SEO, analytics, and design-system implementation. Reduced the production JavaScript bundle by approximately 50%.
+
+## Previous Experience
+
+### React JS Frontend Developer, Devstringx Technologies
+
+May 2022 to February 2025. Developed React.js and Next.js applications for enterprise clients, including reusable UI components, API integrations, authentication workflows, and frontend performance improvements.
+
+## Technical Skills
+
+- Languages: JavaScript, TypeScript, HTML5, CSS3
+- Frontend: React.js, Next.js, Redux Toolkit, RTK Query, Context API, Tailwind CSS, ShadCN/UI, Bootstrap, responsive design, accessibility
+- Backend: Node.js, Express.js, REST APIs, Next.js Server Actions, authentication and authorization, JWT, OAuth, Zod, GraphQL, WebSockets
+- Data: MySQL, MongoDB, SQL, data modeling
+- Cloud and delivery: AWS, AWS Amplify, AWS Lambda, Docker, Vercel, CI/CD, GitHub, Bitbucket
+- Testing and tools: Git, Postman, Jest, Chrome DevTools
+- Engineering: performance optimization, JavaScript bundle optimization, Core Web Vitals, SEO, technical SEO, caching, accessibility, Agile development, code review, GA4, Google Tag Manager
+- AI development tools: Claude Code, GitHub Copilot
+
+## Projects
+
+### Stack Overflow Clone
+
+Q&A application built with Next.js, React, TypeScript, Tailwind CSS, and ShadCN/UI. [Live project](https://vishaldevflow.vercel.app/) · [Source code](https://github.com/vishalsolanki-v/stackNext)
+
+### Commercial Business Application
+
+Business application featuring authentication, server-side rendering, dynamic content, and REST API integration. [Live project](https://mytyles.com)
+
+### HR Management System
+
+HR application using React, Redux Toolkit, Context API, REST APIs, and reusable business interfaces. [Live project](https://clovehr.com/register)
+
+## Education
+
+- Master of Computer Applications, Hi-Tech Institute of Engineering & Technology, 2023-2025
+- Bachelor of Computer Applications, CCS University, 2022
+
+## Awards
+
+- Shining Star of the Year, Devstringx Technologies, 2023
+- Multiple Star of the Month awards, 2022-2024
+
+## Portfolio and Contact
+
+- Website: https://heyvishal.vercel.app
+- Projects: https://heyvishal.vercel.app/#projects
+- Blog section: https://heyvishal.vercel.app/#blog
+- Contact: https://heyvishal.vercel.app/#contact
+- Email: workwithvishalsolanki@gmail.com
+- Location: Noida, India
+- LinkedIn: https://linkedin.com/in/vishal-solanki2000
+- GitHub: https://github.com/vishalsolanki-v
+- Medium: https://medium.com/@vishalthakur2463

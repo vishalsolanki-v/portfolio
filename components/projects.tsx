@@ -6,35 +6,27 @@ import Image from "next/image"
 const projects = [
   {
     title: "Stack Overflow Clone",
-    desc: "Optimized UI/UX, tagging system, Tailwind, ShadCN components.",
-    tech: ["Next.js", "React", "Tailwind", "ShadCN"],
+    desc: "A Stack Overflow-inspired Q&A app with reusable components, responsive layouts, question and tagging interfaces, and content discovery, focused on maintainable architecture and consistent UX.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "ShadCN/UI"],
     live: "https://vishaldevflow.vercel.app/",
     code: "https://github.com/vishalsolanki-v/stackNext",
     image: "/stack-overflow-clone-ui.webp",
   },
   {
     title: "Commercial Business Application",
-    desc: "Auth, SSR, dynamic rendering for scalability.",
-    tech: ["Next.js", "SSR", "Auth"],
+    desc: "A business application centered on authentication, protected flows, server-side rendering, dynamic content, and scalable architecture, with reusable interfaces and backend API integrations.",
+    tech: ["Next.js", "React", "TypeScript", "SSR", "Authentication", "REST APIs"],
     live: "https://mytyles.com",
     code: "company",
     image: "/commercial-business-app.webp",
   },
   {
     title: "HR Management System",
-    desc: "React + Redux + Context API for robust state management.",
-    tech: ["React", "Redux", "Context API"],
+    desc: "A business-oriented HR management application using reusable React components and predictable state management for forms, business workflows, API integrations, and authentication.",
+    tech: ["React", "Redux", "Redux Toolkit", "Context API", "REST APIs"],
     live: "https://clovehr.com/register",
     code: "company",
     image: "/hr-management-system.webp",
-  },
-  {
-    title: "Influencer Marketing Platform",
-    desc: "Real-time messaging (WebSockets) and AI-powered search.",
-    tech: ["WebSockets", "AI Search", "Next.js"],
-    live: "https://app.inflyx.co/login",
-    code: "company",
-    image: "/influencer-marketing-platform.webp",
   },
 ]
 
@@ -98,7 +90,7 @@ export function Projects() {
                   target="_blank" rel="noreferrer"
                   className="rounded-md border border-slate-300/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-slate-900 backdrop-blur hover:shadow dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100"
                 >
-                  {p.code === "company" ? "Company Owned" : "View Code"}
+                  {p.code === "company" ? "Company Project" : "View Code"}
                 </a>
               </div>
             </div>

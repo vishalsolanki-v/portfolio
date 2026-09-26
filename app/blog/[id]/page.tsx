@@ -9,6 +9,7 @@ import './blog.css'
 import { normalizeTitle, sanitizeAndNormalizeMediumHtml } from "@/lib/sanitize-medium";
 import { Navbar } from "@/components/navbar"
 import { hashPostId } from "@/lib/utils"
+import type { Metadata } from "next"
 type Props = { params: { id: string } }
 type Post = {
   title: string
@@ -18,21 +19,26 @@ type Post = {
   author?: string
   excerpt?: string
 }
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { post } = await getPostById(params.id)
-  const site = process.env.NEXT_PUBLIC_SITE_URL || ""
+  const site = (
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://heyvishal.vercel.app"
+  ).replace(/\/$/, "")
   const image = post?.image
     ? post.image.startsWith("http")
       ? post.image
       : `${site}${post.image}`
     : `${site}/blog-social-card.jpg`
-  const url = `${site}/blog/${params.id}`
-  const title = normalizeTitle(post?.title || 'Blog');
+  const title = `${normalizeTitle(post?.title || "Blog")} | Vishal Solanki`
   const descRaw = (post?.description || '').replace(/<[^>]+>/g, '');
   const description = normalizeTitle(descRaw).slice(0, 160) || 'Read this blog';
+  const url = `${site}/blog/${encodeURIComponent(params.id)}`
   return {
     title,
     description,
+    alternates: { canonical: url },
     openGraph: { title, description, type: "article", url, images: [{ url: image }] },
     twitter: { card: "summary_large_image", title, description, images: [image] },
   }

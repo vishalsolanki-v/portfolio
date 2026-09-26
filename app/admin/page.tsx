@@ -1,6 +1,12 @@
 import { fetchMediumFeed } from "@/lib/medium"
 import { getJSON, getNumber, get } from "@/lib/redis"
 import AdminClient from "./admin-client"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Admin | Vishal Solanki",
+  robots: { index: false, follow: false },
+}
 
 export default async function AdminPage({ searchParams }: { searchParams: { key?: string } }) {
   const adminKey = searchParams.key || ""

@@ -67,7 +67,11 @@ export async function generateMetadata({
   params: { id: string }
 }): Promise<Metadata> {
   const id = params.id
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
+  const siteUrl = (
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://heyvishal.vercel.app"
+  ).replace(/\/$/, "")
   const shareUrl = `${siteUrl}/blog/${encodeURIComponent(id)}`
   const targetUrl = `${siteUrl}/?post=${encodeURIComponent(id)}#blog`
 
@@ -76,7 +80,7 @@ export async function generateMetadata({
 
   incrementShare(id)
 
-  const title = post?.title || "Blog post"
+  const title = `${post?.title || "Blog post"} | Vishal Solanki`
   const description = (post?.description && post.description.slice(0, 200)) || "Read this post on my portfolio."
   const fallbackImage = `${siteUrl}/blog-social-card.jpg`
   const image = post?.image?.startsWith("http") ? post.image : post?.image ? `${siteUrl}${post.image}` : fallbackImage
